@@ -1,0 +1,12 @@
+sequence V
+login 
+change password 
+
+Income comes from number of students multiply price.
+
+Reusable: 
+Login from login()
+Register from Register()
+Delete from Delete()
+Edit from edit()
+Change Password from ChangePW()

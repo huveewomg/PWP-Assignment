@@ -1,0 +1,42 @@
+def login(username, password):
+    # Validate admin credentials from "Admin.txt" file
+    # Return True if the credentials are correct and False otherwise
+
+def register_tutor():
+    # Handle tutor registration logic
+    # Store tutor information in "Tutors.txt" file
+    # Assign tutors to respective levels and subjects
+
+def delete_tutor():
+    # Handle tutor deletion logic
+    # Remove tutor information from "Tutors.txt" file
+
+def register_receptionist():
+    # Handle receptionist registration logic
+    # Store receptionist information in "Receptionists.txt" file
+
+def delete_receptionist():
+    # Handle receptionist deletion logic
+    # Remove receptionist information from "Receptionists.txt" file
+
+def view_monthly_income_report(level, subject):
+    # Read tutor information and income records
+    # Calculate and display the monthly income report based on the specified level and subject
+
+def update_admin_profile():
+    # Handle admin profile update logic
+    # Modify admin information in "Admin.txt" file
+
+def admin_menu():
+    # Display admin menu options and handle user input
+    # Call the respective functions based on user's choice
+
+def main():
+    # Main program logic
+    # Call the login function
+    # If login is successful, call the admin_menu function
+
+# Call the main function to start the program
+main()
+
+
