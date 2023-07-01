@@ -180,6 +180,110 @@ def ChangePW(user): #change password for everyone
 
     print("Password updated successfully.")
 
+def PaymentMenu():
+    # Read student data
+    student_data = []
+    with open('Student.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                student_info = line.split('\t')
+                student_data.append(student_info)
+
+    # Declare and initialize user_name variable and ask for input
+    user_name = input("Enter your name: ")
+
+    # Read pricing information
+    pricing_info = {}
+    with open('Subject_Pricing.txt', "r") as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                values = line.split("\t")
+                if len(values) == 2:
+                    subject, price = values
+                    pricing_info[subject] = float(price)
+
+    # Find student by name and calculate total price
+    total_price = 0
+    for student_info in student_data:
+        if student_info[0] == user_name:
+            subjects = student_info[2:]
+            total_price = sum(pricing_info[subject] for subject in subjects)
+            break
+
+    # Display the total price
+    print("Total Price for {}: ${:.2f}".format(user_name, total_price))
+
+def UpdateMenu(user):
+    user_data = []
+    with open(user + ".txt", "r") as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                user_info = line.split('\t')
+                user_data.append(user_info)
+
+    # Prompt for the username
+    username = input("Enter username: ")
+
+    # Find the user record based on the username
+    user_index = None
+    for i, user_info in enumerate(user_data):
+        if user_info[0] == username:
+            user_index = i
+            break
+    if user_index is None:
+        print(user + " username not found.")
+        return
+
+    # Fetch the last three data under the username
+    subjects = user_data[user_index][2:]
+    print("Current subjects:", subjects)
+
+    # Prompt for new subjects
+    new_subjects = []
+    for i in range(3):
+        subject = input("Enter subject {}, ".format(i+1)+ 'If nothing enter n: ')
+        subject = subject.capitalize()
+        if subject == 'N':
+            subject = 'N/A'
+            print(subject)
+            new_subjects.append(subject)
+        else:
+            new_subjects.append(subject)
+
+    # Replace the last three data with the new subjects
+    user_data[user_index][2:] = new_subjects
+
+    # Write the updated data back to the file
+    with open(user + ".txt", "w") as file:
+        for user_info in user_data:
+            file.write('\t'.join(user_info) + '\n')
+
+    print("Subjects updated successfully.")
+
+def ReceptionistMenu(): #Reception Menu 
+    while True:
+        print('Receptionist Menu')
+        print("1. Register / Delete Student ")
+        print("2. Update Student's enrollment")
+        print("3. Payment")
+        print("4. Change Password")
+
+        choice = int(input("Enter your choice: "))
+        if choice == 1: #Done
+            EditMenu('Student')  
+        elif choice == 2:
+            UpdateMenu('Student')
+        elif choice == 3:
+            PaymentMenu()
+        elif choice == 4:  #Done
+            ChangePW('Receptionist')
+        else:
+            print('Invalid input,please enter number 1 to 4 only.')
+            print("")
+
 def AdminMenu(): #Admin Menu All function for admin
     while True:
         print('Admin Menu')
@@ -199,32 +303,6 @@ def AdminMenu(): #Admin Menu All function for admin
         else:
             print('Invalid input,please enter number 1 to 4 only.')
             print("")
-
-def RecepMenu(): #Reception Menu 
-    while True:
-        print('Receptionist Menu')
-        print("1. Register / Delete Student ")
-        print("2. Update Student's enrollment")
-        print("3. Payment")
-        print("4. Change Password")
-
-        choice = int(input("Enter your choice: "))
-        if choice == 1:
-            EditMenu('Student')
-        elif choice == 2:
-            UpdateMenu('Student')
-        elif choice == 3:
-            PaymentMenu()
-        elif choice == 4:
-            ChangePW('Receptionist')
-        else:
-            print('Invalid input,please enter number 1 to 4 only.')
-            print("")
-
-def 
-
-
-
 
 
 def mainmenu(): # start screen 

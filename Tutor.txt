@@ -1,7 +1,6 @@
 slideReader	NPC12345    slide1  moodle  team
 Overpaidnpc	APU123  Inform Admin    N/A N/A
 sureshNPC	ihateapu
-cynthia	yoga is good	yoga	not business	N/A
+cynthia	yoga is good	yoga	MLM business	Watch Youtube
 PWPlect	12345678	python lullaby	malding	N/A
-jesus123	12345678	holy work	N/A	drinking	
-jesus2	12345678	coke	weed	meth	
+jesus123	12345678	holy work	N/A	drinking

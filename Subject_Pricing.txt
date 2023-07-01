@@ -1,0 +1,15 @@
+Malay	50
+English	50
+History	60
+Mathematics	70
+Science	70
+Additional Mathematics 	80
+Physics	80
+Chemistry	80
+Biology	80
+Additional Science	80
+Entrepreneurial Studies	60
+Business	60
+Account	70
+Economics	70
+N/A	0
