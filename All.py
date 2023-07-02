@@ -180,7 +180,7 @@ def ChangePW(user): #change password for everyone
 
     print("Password updated successfully.")
 
-def PaymentMenu():
+def PaymentMenu():# Receptionist func
     # Read student data
     student_data = []
     with open('Student.txt', 'r') as file:
@@ -215,7 +215,7 @@ def PaymentMenu():
     # Display the total price
     print("Total Price for {}: ${:.2f}".format(user_name, total_price))
 
-def UpdateMenu(user):
+def UpdateMenu(user): #
     user_data = []
     with open(user + ".txt", "r") as file:
         for line in file:

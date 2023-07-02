@@ -1,6 +1,8 @@
-slideReader	NPC12345    slide1  moodle  team
-Overpaidnpc	APU123  Inform Admin    N/A N/A
-sureshNPC	ihateapu
-cynthia	yoga is good	yoga	MLM business	Watch Youtube
-PWPlect	12345678	python lullaby	malding	N/A
-jesus123	12345678	holy work	N/A	drinking
+cynthia	yoga is good	Chemistry	Science	Physics
+lect1	12345	Malay	English	N/A
+lect2	12345	History	N/A	N/A
+lect3	12345	Mathematics	Addtional Mathematics	N/A
+lect4	12345	Biology	Addtional Science	N/A
+lect5	12345	Busiess	Account	Economics
+lect6	12345	Entrepreneurial Studies	N/A	N/A
+lect7	12345	Bible Knowledge	N/A	N/A

@@ -1,3 +1,24 @@
-nerd	brian123	Bible Knowledge	Quran knowledge	N/A
-brianboi	123456	Chemistry	Science	N/A
-jason	123456	Mpu	Mpu2	N/A
+Student11	password11	Malay	Biology	English
+Student12	password12	Chemistry	English	History
+Student13	password13	Additional Science	Physics	Malay
+Student14	password14	History	English	Science
+Student15	password15	Malay	Business	Additional Mathematics
+Student16	password16	English	Biology	Physics
+Student17	password17	Additional Science	English	Chemistry
+Student18	password18	Malay	English	Additional Science
+Student19	password19	Physics	Malay	Additional Mathematics
+Student20	password20	English	History	Science
+Student21	password21	Malay	Biology	Additional Science
+Student22	password22	Entrepreneurial Studies	English	Malay
+Student23	password23	History	Additional Mathematics	Malay
+Student24	password24	Malay	Additional Science	English
+Student25	password25	Chemistry	English	Mathematics
+Student26	password26	English	Additional Mathematics	History
+Student27	password27	Malay	Economics	Additional Science
+Student28	password28	Biology	English	Additional Science
+Student29	password29	Additional Mathematics	Malay	Science
+Student30	password30	English	Chemistry	Biology
+
+
+
+
