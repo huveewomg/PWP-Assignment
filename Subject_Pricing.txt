@@ -3,7 +3,7 @@ English	50
 History	60
 Mathematics	70
 Science	70
-Additional Mathematics 	80
+Additional Mathematics	80
 Physics	80
 Chemistry	80
 Biology	80

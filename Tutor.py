@@ -1,6 +1,18 @@
 #Login func done
 #Access into subject_pricing to add or remove time table (Reuse )
 
+def UpdateMenu():
+    class_info = []
+    with open('Subject_Pricing.txt', 'r') as file:
+        for line in file:
+            line.strip()
+            if line:
+                subject_info= line.split('\t')
+                class_info.append(subject_info)
+    
+    #Find Subject from prompt
+    subject = input('What Subject you want to update')
+    
 
 
 def ViewEnrolledStud(tutor_name):

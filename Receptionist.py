@@ -1,7 +1,10 @@
 #Login Done
-#Register and enroll student done. 
+#Register and enroll student done. EditMenu() both register and delete users
 
-def UpdateMenu(user):
+
+
+
+def UpdateMenu(user): #Change student's enrollment 
     user_data = []
     with open(user + ".txt", "r") as file:
         for line in file:
@@ -83,7 +86,40 @@ def PaymentMenu():
             break
 
     # Display the total price
-    print("Total Price for {}: ${:.2f}".format(user_name, total_price))
+    print("Total Price for {}: RM{:.2f}".format(user_name, total_price))  # checkout interface
+    total_price = str(total_price)
+    print('Do you want to pay now?')
+    choice = input('Yes or No (Enter Y/N): ').capitalize()
+    if choice == 'Y':
+        print('Which method do you prefer to pay with?')
+        print('1. Bank Transfer')
+        print('2. E-wallet')
+        choice = int(input('Enter only 1/2: '))
+        Company_Name = input('What Bank/E-wallet? ').upper()
+        acc_num = int(input('Enter your Account Number: '))
+        print('Connecting to ' + Company_Name + ' Server...')
+    # add chances to fail for realistic purpose without random library 
+    #fix later
+        print('Offical Receipt of Brilliant Tuition Centre(BTC)') # receipt part
+        print('_________________________________________________')
+        print(user_name + ': RM'+ total_price)
+        print('Paid with: ' + Company_Name)
+        print('')
+        print('Thank you! ')
+        print('')
+    else:
+        return
+    
+def Ticket():
+    #read available ticket waiting for approval check array in txt file
+    ticket_list = []
+    with open ('Ticket.txt') as file:
+        for line in file:
+            ticket_info = line.strip()
+            ticket_list.append(ticket_info)
+    
+    
+    
 
 
 def ReceptionistMenu(): #Reception Menu 
@@ -92,7 +128,9 @@ def ReceptionistMenu(): #Reception Menu
         print("1. Register / Delete Student ")
         print("2. Update Student's enrollment")
         print("3. Payment")
-        print("4. Change Password")
+        print('4. Support Ticket')
+        print("5. Change Password")
+
 
         choice = int(input("Enter your choice: "))
         if choice == 1: #Done
@@ -102,6 +140,8 @@ def ReceptionistMenu(): #Reception Menu
         elif choice == 3:
             PaymentMenu()
         elif choice == 4:  #Done
+            Ticket()
+        elif choice == 5:
             ChangePW('Receptionist')
         else:
             print('Invalid input,please enter number 1 to 4 only.')

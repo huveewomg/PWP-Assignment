@@ -10,3 +10,9 @@ Register from Register()
 Delete from Delete()
 Edit from edit()
 Change Password from ChangePW()
+
+Student Info different file ? 
+
+
+Pending Request in 1 file
+Request Approve/Rejected in 1 file
