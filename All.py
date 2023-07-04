@@ -57,7 +57,23 @@ def register(user):  # Register function for everyone
             break
         else:
             print("Passwords don't match. Please try again.")
-    
+
+    while True: #add name function only available for student and lecturer
+        if user =='Receptionist':
+            break
+        else:
+            name = input('Enter Your Name: ')
+            data.append(name)
+            break
+
+    while True: #ask for student's form hence only available for Student
+        if user == 'Tutor' or 'Receptionist':
+            break
+        else:
+            form = input('Enter Form 1/2/3/4/5: ')
+            data.append(form)
+            break
+
     while True:
         if user == 'Receptionist':
             break
@@ -208,7 +224,7 @@ def PaymentMenu():# Receptionist func
     total_price = 0
     for student_info in student_data:
         if student_info[0] == user_name:
-            subjects = student_info[2:]
+            subjects = student_info[4:]
             total_price = sum(pricing_info[subject] for subject in subjects)
             break
 
@@ -238,7 +254,7 @@ def UpdateMenu(user): #
         return
 
     # Fetch the last three data under the username
-    subjects = user_data[user_index][2:]
+    subjects = user_data[user_index][4:]
     print("Current subjects:", subjects)
 
     # Prompt for new subjects
@@ -254,7 +270,7 @@ def UpdateMenu(user): #
             new_subjects.append(subject)
 
     # Replace the last three data with the new subjects
-    user_data[user_index][2:] = new_subjects
+    user_data[user_index][4:] = new_subjects
 
     # Write the updated data back to the file
     with open(user + ".txt", "w") as file:
@@ -271,14 +287,14 @@ def ReceptionistMenu(): #Reception Menu
         print("3. Payment")
         print("4. Change Password")
 
-        choice = int(input("Enter your choice: "))
-        if choice == 1: #Done
+        choice = input("Enter your choice: ")
+        if choice == '1': #Done
             EditMenu('Student')  
-        elif choice == 2:
+        elif choice == '2':
             UpdateMenu('Student')
-        elif choice == 3:
+        elif choice == '3':
             PaymentMenu()
-        elif choice == 4:  #Done
+        elif choice == '4':  #Done
             ChangePW('Receptionist')
         else:
             print('Invalid input,please enter number 1 to 4 only.')

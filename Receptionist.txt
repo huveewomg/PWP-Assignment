@@ -1,3 +1,3 @@
 slave	slavery123
-
-black	cotton	
+black	cotton
+frontd2	123456

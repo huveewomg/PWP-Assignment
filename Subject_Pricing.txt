@@ -12,5 +12,5 @@ Entrepreneurial Studies	60
 Business	60
 Account	70
 Economics	70
-Bible Knowledge	100
+Bible Knowledge	69
 N/A	0

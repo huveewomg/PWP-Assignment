@@ -1,0 +1,73 @@
+#Common Subject
+
+Subject: Science
+Lecturer: cynthia
+Charges: RN70 per month
+Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
+
+Subject: Malay
+Lecturer: lect1
+Charges: RM50 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: English
+Lecturer: lect1
+Charges: RM50 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: History
+Lecturer: lect2
+Charges: RM50 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Mathematics
+Lecturer: lect3
+Charges: RM70 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+
+# F4/F5 execlusive 
+Subject: Biology
+Lecturer: lect4
+Charges: RM80 per month 
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Addtional Mathematics
+Lecturer: lect3
+Charges: RM80 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Bible Knowledge
+Lecturer: fatherjohn
+Charges: RM69 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Entrepreneurial Studies
+Lecturer: lect6
+Charges: RM60 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Economics
+Lecturer: lect5
+Charges: RM70 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Account
+Lecturer: lect5
+Charges: RM70 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Business
+Lecturer: lect5
+Charges: RM50 per month
+Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+
+Subject: Physics
+Lecturer: cynthia
+Charges: RM80 per month
+Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
+
+Subject: Chemistry
+Lecturer: cynthia
+Charges: RM80 per month
+Class Schedule: Tuesday, Thursday (1 PM - 3 PM)

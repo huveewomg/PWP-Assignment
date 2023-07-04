@@ -1,8 +1,8 @@
-cynthia	yoga is good	Chemistry	Science	Physics
-lect1	12345	Malay	English	N/A
-lect2	12345	History	N/A	N/A
-lect3	12345	Mathematics	Addtional Mathematics	N/A
-lect4	12345	Biology	Addtional Science	N/A
-lect5	12345	Busiess	Account	Economics
-lect6	12345	Entrepreneurial Studies	N/A	N/A
-lect7	12345	Bible Knowledge	N/A	N/A
+tutor0	12345	Dr.P	Chemistry	Science	Physics
+tutor1	12345	Mr.J	Malay	English	N/A
+tutor2	12345	Mrs.T	History	N/A	N/A
+tutor3	12345	Mr.C	Mathematics	Addtional Mathematics	N/A
+tutor4	12345	Mrs.J	Biology	Addtional Science	N/A
+tutor5	12345	Mr.D	Business	Account	Economics
+tutor6	12345	Mrs.P	Entrepreneurial Studies	N/A	N/A
+john	12345	Father John	Bible Knowledge	N/A	N/A

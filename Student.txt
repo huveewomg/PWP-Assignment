@@ -1,24 +1,45 @@
-Student11	password11	Malay	Biology	English
-Student12	password12	Chemistry	English	History
-Student13	password13	Additional Science	Physics	Malay
-Student14	password14	History	English	Science
-Student15	password15	Malay	Business	Additional Mathematics
-Student16	password16	English	Biology	Physics
-Student17	password17	Additional Science	English	Chemistry
-Student18	password18	Malay	English	Additional Science
-Student19	password19	Physics	Malay	Additional Mathematics
-Student20	password20	English	History	Science
-Student21	password21	Malay	Biology	Additional Science
-Student22	password22	Entrepreneurial Studies	English	Malay
-Student23	password23	History	Additional Mathematics	Malay
-Student24	password24	Malay	Additional Science	English
-Student25	password25	Chemistry	English	Mathematics
-Student26	password26	English	Additional Mathematics	History
-Student27	password27	Malay	Economics	Additional Science
-Student28	password28	Biology	English	Additional Science
-Student29	password29	Additional Mathematics	Malay	Science
-Student30	password30	English	Chemistry	Biology
-
-
-
-
+Student11	password11	Jim	5	Malay	Biology	English
+Student12	password12	Liu	4	Chemistry	English	History
+Student13	password13	James	4	Science	Physics	Malay
+Student14	password14	Liam	3	History	English	Science
+Student15	password15	Ava	5	Malay	Business	Additional Mathematics
+Student16	password16	Noah	4	English	Biology	Physics
+Student17	password17	Bell	4	Science	English	Chemistry
+Student18	password18	Sophia	4	Malay	English	Science
+Student19	password19	Mason	4	Physics	Malay	Additional Mathematics
+Student20	password20	Harper	2	English	History	Science
+Student21	password21	Elijah	5	Malay	Biology	Science
+Student22	password22	Simon	4	Entrepreneurial Studies	English	Malay
+Student23	password23	Ben	4	History	Additional Mathematics	Malay
+Student24	password24	Jason	4	Malay	Science	English
+Student25	password25	Samuel	5	Chemistry	English	Mathematics
+Student26	password26	Anon	5	English	Additional Mathematics	History
+Student27	password27	Tom	4	Malay	Economics	Science
+Student28	password28	Jane	3	Biology	English	Science
+Student29	password29	Eva	4	Mathematics	Malay	Science
+Student30	password30	Penny	3	English	Chemistry	Biology
+Student31	password31	John	2	History	Mathematics	Science
+Student32	password32	Sarah	2	English	Mathematics	Malay
+Student33	password33	Alex	2	Science	Malay	History
+Student34	password34	Lily	2	English	Science	Mathematics
+Student35	password35	Ethan	3	Mathematics	Malay	English
+Student36	password36	Sophie	2	Science	History	English
+Student37	password37	Liam	1	English	History	Mathematics
+Student38	password38	Ava	1	Mathematics	Malay	Science
+Student39	password39	Noah	1	English	History	Malay
+Student40	password40	Emma	1	Science	English	History
+Student41	password41	Lucas	2	History	Malay	Mathematics
+Student42	password42	Bella	2	English	Science	History
+Student43	password43	Oliver	3	Mathematics	Malay	Science
+Student44	password44	Mia	2	Malay	History	English
+Student45	password45	Aiden	1	Science	Mathematics	History
+Student46	password46	Chet	2	History	English	Malay
+Student47	password47	Elih	1	Mathematics	Malay	Science
+Student48	password48	Amelia	2	English	History	Malay
+Student49	password49	Moson	3	Science	Mathematics	History
+Student50	password50	Han	2	History	Malay	English
+Student51	password51	Carter	1	Mathematics	Science	English
+Student52	password52	Sofia	2	English	History	Malay
+Student53	password53	Will	3	History	Malay	Science
+Student54	password54	Abigail	1	Malay	English	Science
+tester	123456	JASON BONG	3	Science	English	N/A

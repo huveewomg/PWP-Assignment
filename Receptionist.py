@@ -27,7 +27,7 @@ def UpdateMenu(user): #Change student's enrollment
         return
 
     # Fetch the last three data under the username
-    subjects = user_data[user_index][2:]
+    subjects = user_data[user_index][4:]
     print("Current subjects:", subjects)
 
     # Prompt for new subjects
@@ -43,7 +43,7 @@ def UpdateMenu(user): #Change student's enrollment
             new_subjects.append(subject)
 
     # Replace the last three data with the new subjects
-    user_data[user_index][2:] = new_subjects
+    user_data[user_index][4:] = new_subjects
 
     # Write the updated data back to the file
     with open(user + ".txt", "w") as file:
@@ -81,7 +81,7 @@ def PaymentMenu():
     total_price = 0
     for student_info in student_data:
         if student_info[0] == user_name:
-            subjects = student_info[2:]
+            subjects = student_info[4:]
             total_price = sum(pricing_info[subject] for subject in subjects)
             break
 
