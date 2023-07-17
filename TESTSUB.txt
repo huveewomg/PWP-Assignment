@@ -2,7 +2,7 @@
 
 Subject: Science
 Lecturer: cynthia
-Charges: RN70 per month
+Charges: RM70 per month
 Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
 
 Subject: Malay
@@ -27,6 +27,7 @@ Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
 
 
 # F4/F5 execlusive 
+
 Subject: Biology
 Lecturer: lect4
 Charges: RM80 per month 
@@ -71,3 +72,13 @@ Subject: Chemistry
 Lecturer: cynthia
 Charges: RM80 per month
 Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
+
+Subject: Chinese
+Lecturer: lectx
+Charges: RM40 per month
+Class Schedule: Tuesday (9PM - 11PM) 
+
+Subject: Bible Knowledge
+Lecturer: John
+Charges: RM69 per month
+Class Schedule: Sunday (8am - 10am)

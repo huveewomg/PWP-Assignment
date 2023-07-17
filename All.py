@@ -1,3 +1,5 @@
+
+# Function that are global 
 def login(user): #login works for everyone call function with '???'
     file = open(user + '.txt', "r")
     max_attempts = 3
@@ -97,16 +99,14 @@ def register(user):  # Register function for everyone
     print("Registration successful.")
     print(user + ' added successfully')
 
-def EditMenu(user): #edit menu for everyone
+def EditMenu(user): #Edit menu for add or remove
     print('1. Add new '+ user)
     print('2. Remove ' + user)
     choice = int(input('What do you want to do ? '))
     if choice == 1:
         register(user)
-        print('Tutor added successfully')
     elif choice == 2:
         delete(user)
-        print('Tutor removed sucessfully')
 
 def delete(user): #delete existing user 
     # Read data from respective user files
@@ -196,42 +196,7 @@ def ChangePW(user): #change password for everyone
 
     print("Password updated successfully.")
 
-def PaymentMenu():# Receptionist func
-    # Read student data
-    student_data = []
-    with open('Student.txt', 'r') as file:
-        for line in file:
-            line = line.strip()
-            if line:
-                student_info = line.split('\t')
-                student_data.append(student_info)
-
-    # Declare and initialize user_name variable and ask for input
-    user_name = input("Enter your name: ")
-
-    # Read pricing information
-    pricing_info = {}
-    with open('Subject_Pricing.txt', "r") as file:
-        for line in file:
-            line = line.strip()
-            if line:
-                values = line.split("\t")
-                if len(values) == 2:
-                    subject, price = values
-                    pricing_info[subject] = float(price)
-
-    # Find student by name and calculate total price
-    total_price = 0
-    for student_info in student_data:
-        if student_info[0] == user_name:
-            subjects = student_info[4:]
-            total_price = sum(pricing_info[subject] for subject in subjects)
-            break
-
-    # Display the total price
-    print("Total Price for {}: ${:.2f}".format(user_name, total_price))
-
-def UpdateMenu(user): #
+def UpdateSub(user): #Reassign subject menu
     user_data = []
     with open(user + ".txt", "r") as file:
         for line in file:
@@ -279,27 +244,233 @@ def UpdateMenu(user): #
 
     print("Subjects updated successfully.")
 
+
+# Start of Receptionist Function
 def ReceptionistMenu(): #Reception Menu 
     while True:
         print('Receptionist Menu')
         print("1. Register / Delete Student ")
         print("2. Update Student's enrollment")
         print("3. Payment")
-        print("4. Change Password")
+        print('4. Support Ticket')
+        print("5. Change Password")
+        print('6. Logout')
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
-            EditMenu('Student')  
+            EditMenu('Receptionist')  
         elif choice == '2':
-            UpdateMenu('Student')
+            UpdateSub('Student')
         elif choice == '3':
-            PaymentMenu()
+            Payment()
         elif choice == '4':  #Done
+            ticket_menu('Receptionist')
+        elif choice == '5':
             ChangePW('Receptionist')
+        elif choice == '6':
+            return
         else:
             print('Invalid input,please enter number 1 to 4 only.')
             print("")
 
+def Payment():
+    # Read student data
+    student_data = []
+    with open('Student.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                student_info = line.split('\t')
+                student_data.append(student_info)
+
+    # Declare and initialize user_name variable and ask for input
+    user_name = input("Enter your name: ")
+
+    # Read pricing information
+    pricing_info = {}
+    with open('Subject_Pricing.txt', "r") as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                values = line.split("\t")
+                if len(values) == 2:
+                    subject, price = values
+                    pricing_info[subject] = float(price)
+
+    # Find student by name and calculate total price
+    total_price = 0
+    for student_info in student_data:
+        if student_info[0] == user_name:
+            subjects = student_info[4:]
+            total_price = sum(pricing_info[subject] for subject in subjects)
+            break
+
+    # Display the total price
+    print("Total Price for {}: RM{:.2f}".format(user_name, total_price))  # checkout interface
+    total_price = str(total_price)
+    print('Do you want to pay now?')
+    choice = input('Yes or No (Enter Y/N): ').capitalize()
+    if choice == 'Y':
+        print('Which method do you prefer to pay with?')
+        print('1. Bank Transfer')
+        print('2. E-wallet')
+        choice = int(input('Enter only 1/2: '))
+        Company_Name = input('What Bank/E-wallet?: ').upper()
+        acc_num = int(input('Enter your Account Number: '))
+        print('Connecting to ' + Company_Name + ' Server...')
+    # add chances to fail for realistic purpose without random library 
+    #fix later
+        print('Offical Receipt of Brilliant Tuition Centre(BTC)') # receipt part
+        print('_________________________________________________')
+        print(user_name + ': RM'+ total_price)
+        print('Paid with: ' + Company_Name)
+        print('')
+        print('Thank you! ')
+        print('')
+    else:
+        return
+
+def generate_ticket_number(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
+            
+            if lines:
+                last_line = lines[-1].strip().split('\t')
+                last_ticket_number = int(last_line[0])
+                new_ticket_number = last_ticket_number + 1
+            else:
+                new_ticket_number = 1
+                
+            return str(new_ticket_number).zfill(3)
+    except FileNotFoundError:
+        return '001'  # If the file doesn't exist, start with ticket number 001
+
+def create_new_ticket(file_name):
+    ticket_number = generate_ticket_number(file_name)
+    name = input('Enter your name: ')
+    message = input('Enter your message: ')
+    status = 'Pending'
+    
+    new_ticket = f'{ticket_number}\t{name}\t{message}\t{status}\n'
+    
+    with open(file_name, 'a') as file:
+        file.write(new_ticket)
+    print('This is your ticket number: '+ ticket_number)
+    print('Please remember your ticket number.')
+    print('New ticket created successfully!')
+
+def remove_ticket(file_name):
+    ticket_number = input('Enter the ticket number to remove: ')
+    name = input('Enter Your Name: ')
+    confirmation = input('Are you Sure ? (Y/N)').capitalize()
+
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+    
+    ticket_found = False
+
+    if confirmation == 'Y':
+        with open(file_name, 'w') as file:
+            for line in lines:
+                if line.startswith(ticket_number) and name in line:
+                    ticket_found = True
+                else:
+                    file.write(line)
+
+        if ticket_found:
+            print('Ticket removed successfully!')
+        else:
+            print('Ticket not found or name does not match.')
+    else:
+        print('Process Cancelled')
+     
+def change_ticket_status(file_name):
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        if 'Pending' in line:
+            print(line.strip())  # Print the line if it has a 'Pending' status
+
+    ticket_number = input('Which ticket number do you want to edit?: ')
+    print('If Approve, enter Y. If Reject, enter N.')
+    new_status = input('Enter the new status: ').capitalize()
+
+    while new_status not in ['Y', 'N']:
+        print('Invalid input. Please enter Y to Approve or N to Reject.')
+        new_status = input('Enter the new status: ').capitalize()
+
+    if new_status == 'Y':
+        new_status = 'Approved'
+    else:
+        new_status = 'Rejected'
+
+    with open(file_name, 'w') as file:
+        for line in lines:
+            ticket_info = line.split('\t')
+            if ticket_info[0] == ticket_number:
+                ticket_info[-1] = new_status
+                updated_line = '\t'.join(ticket_info)
+                file.write(updated_line + '\n')
+            else:
+                file.write(line)
+    
+    print('Ticket status updated successfully.')
+
+def check_status(user):
+    with open('ticket.txt', 'r') as file:
+        lines = file.readlines()
+
+    if user == 'Student':
+        student_name = input('Enter Your Name: ')
+        for line in lines:
+            if student_name in line:
+                print(line.strip())  # Print the line if the student's name is found
+    
+    elif user == 'Receptionist':
+        for line in lines:
+            if 'Pending' in line:
+                print(line.strip())  # Print the line if 'Pending' is found
+
+def ticket_menu(user):
+    ticket_file = 'tickets.txt'
+    
+    while True: 
+        if user == 'Student':
+            print('1. Create new ticket')
+            print('2. Remove ticket')
+            print('3. Check Status')
+            print('4. Return to Student Menu')
+            choice = input('Enter Your Choice 1-4: ')
+            if choice == '1':
+                create_new_ticket('Ticket.txt')
+            elif choice == '2':
+                remove_ticket('Ticket.txt')
+            elif choice == '3':
+                check_status('Student')
+            elif choice == '4':
+                return
+            else: 
+                print('Invalid choice. Please try again.')
+        elif user == 'Receptionist':
+            print('1. View Ticket Status')
+            print('2. Change ticket status')
+            print('3. Return to Receptionist Menu')
+            choice = input('Enter your choice (1-3): ')
+            if choice == '1':
+                check_status('Receptionist')
+            elif choice == '2':
+                change_ticket_status('Ticket.txt')
+            elif choice == '3':
+                return
+            else:
+                print('Invalid choice. Please try again.')
+
+# End of Receptionist function
+
+
+# Start of Admin Function
 def AdminMenu(): #Admin Menu All function for admin
     while True:
         print('Admin Menu')
@@ -307,18 +478,76 @@ def AdminMenu(): #Admin Menu All function for admin
         print("2. Edit Tutor")
         print("3. Income Report")
         print("4. Change Password")
-        choice = int(input("Enter your choice: "))
-        if choice == 1:
+        choice = input("Enter your choice: ")
+        if choice == '1':
             EditMenu('Receptionist')
-        elif choice == 2:
+        elif choice == '2':
             EditMenu('Tutor')
-        elif choice == 3:
+        elif choice == '3':
             Income()
-        elif choice == 4:
+        elif choice == '4':
             ChangePW('Admin')
         else:
             print('Invalid input,please enter number 1 to 4 only.')
             print("")
+
+def Income():
+    print('')
+
+
+
+
+# End of Admin Function
+
+
+# Start of Tutor Function
+def TutorMenu():
+    while True:
+        print('\n')
+        print('Tutor Menu')
+        print("1. Add Class Information ")
+        print("2. View Students enrolled in my Class")
+        print("3. Change Password")
+
+        choice = input("Enter your choice: ")
+        if choice == '1': #Done
+            ClassMenu('Tutor')  
+        elif choice == '2':
+            tutor_name = input("Enter tutor name: ")
+            ViewEnrolledStud(tutor_name)
+        elif choice == '3':  #Done
+            ChangePW('Tutor')
+        else:
+            print('Invalid input,please enter number 1 to 3 only.')
+            print("")
+
+
+
+
+# Enf of Tutor Function
+
+
+# Start of Student Function
+def StudentMenu():
+    while True:
+        print('Student Menu')
+        print('1. Check Timetable')
+        print('2. Send / Delete Request')
+        print('3. Fee')
+        print('4. Change Password ')
+        choice = input('Enter Your Choice: ')
+        if choice == '1':
+            ClassMenu()
+        elif choice == '2':
+            TicketMenu()
+        elif choice == '3':
+            Payment()
+        elif choice == '4':
+            ChangePW('Student')
+
+
+
+# End of Student Function
 
 
 def mainmenu(): # start screen 
@@ -344,3 +573,8 @@ def mainmenu(): # start screen
 
     
 mainmenu()
+
+#Income (admin) number of subject find price* student in the class1
+#Payment for recep and student need double confirm
+#Search for class func for both tutor and student double check
+#back button for every page
