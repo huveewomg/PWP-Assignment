@@ -62,7 +62,7 @@ def ViewEnrolledStud(tutor_name):
     else:
         print("No enrolled students found.")
 
-def search_class_by_subject(subject):
+def search_class_by_subject(subject): #need refine
     with open('TESTSUB.txt', 'r') as file:
         class_data = file.read()
 
@@ -80,7 +80,7 @@ def search_class_by_subject(subject):
     if not subject_found:
         print('Subject Not Available')
 
-def search_class_by_student():
+def search_class_by_student():  # need refine need each other to work
     student_name = input('Enter student name: ')
     found_student = False
 
@@ -98,7 +98,7 @@ def search_class_by_student():
             if current_student_name.lower() == student_name.lower():
                 print('Timetable for', current_student_name + ':')
                 for subject in subjects:
-                    search_class_by_subject(subject=subject)
+                    search_class_by_subject(subject=subject) #reuse the function
                 found_student = True
                 break
 
@@ -107,52 +107,125 @@ def search_class_by_student():
 
     print('\n')  # Add a new line for better readability
 
+def EditClass(user):# need fix on searching class to update it filter keyword easily
+    while True:
+            print('')
+            print('1. Add Class')
+            print('2. Edit Class')
+            choice = input(' Enter Your Choice: ')
+            if choice == '1':
+                subject = input('Enter the subject: ')
+                lecturer = input('Enter the lecturer: ')
+                charges = input('Enter the charges (e.g., RM?? per month): ')
+                class_schedule = input('Enter the class schedule: ')
+                
+                # Format the charges line as "Charges: RM80 per month"
+                charges_line = 'Charges: RM{} per month'.format(charges)
+                
+                # Write the class information to the TESTSUB.txt file
+                with open('TESTSUB.txt', 'a') as file:
+                    file.write('\nSubject: {}\nLecturer: {}\n{}\nClass Schedule: {}\n'.format(subject, lecturer, charges_line, class_schedule))
+                
+                print('Class added successfully!')
+                break
+            
+            elif choice == '2':
+                subject = input('Enter the subject to edit: ').capitalize()
+                updated_class_info = ''
+                found_subject = False
+                
+                with open('TESTSUB.txt', 'r') as file:
+                    class_data = file.read()
+                
+                class_list = class_data.split('\n\n')
+                
+                for class_info in class_list:
+                    if subject in class_info:
+                        print('')
+                        print('Current class information:')
+                        print(class_info)
+                        print('Enter the updated details:')
+                        
+                        # Prompt the user for updated information
+                        updated_subject = input('Subject: ')
+                        updated_lecturer = input('Lecturer: ')
+                        updated_charges = input('Charges (e.g., 80): ')
+                        updated_schedule = input('Class Schedule: ')
+                        
+                        # Format the charges line
+                        updated_charges_line = 'Charges: RM{} per month'.format(updated_charges)
+                        
+                        # Create the updated class information string
+                        updated_class_info = 'Subject: {}\nLecturer: {}\n{}\nClass Schedule: {}'.format(updated_subject, updated_lecturer, updated_charges_line, updated_schedule)
+                        
+                        found_subject = True
+                        break
+                
+                if found_subject:
+                    # Replace the existing class information with the updated information
+                    updated_data = class_data.replace(class_info, updated_class_info)
+                    
+                    with open('TESTSUB.txt', 'w') as file:
+                        file.write(updated_data)
+                    
+                    print('Class edited successfully!')
+                else:
+                    print('Subject not found.')
+
+            else:
+                print('Invalid choice. Please try again.')
+
 def ClassMenu(user):
     while True:
+        print('\n')
         print('Class Menu')
         print('1. Check Timetable')
-        print('2. Add / Edit Class (Only For Tutor)')
         
-        choice = int(input('Enter your choice (1 or 2): '))
+        if user == 'Tutor':  # Assuming the user object has a 'role' attribute
+            print('2. Add / Edit Class (Only For Tutor)')
+            choice = input('Enter your choice (1 or 2): ')
+        else:
+            choice = input('Enter your choice: ')
         
-        if choice == 1:
+        if choice == '1':
             print('Do you want to check the timetable for:')
             print('1. A specific student')
             print('2. A specific subject')
             
-            search_choice = int(input('Enter your choice (1 or 2): '))
+            search_choice = input('Enter your choice (1 or 2): ')
             
-            if search_choice == 1:
-                student_name = input('Enter student username: ')
+            if search_choice == '1':
+                # student_name = input('Enter student username: ')
                 search_class_by_student()
-            elif search_choice == 2:
+            elif search_choice == '2':
                 subject = input('Enter subject: ').capitalize()
                 search_class_by_subject(subject=subject)
             else:
                 print('Invalid choice. Please try again.')
-        elif choice == 2:
-            EditClass()
+        elif choice == '2':
+            if user == 'Tutor':
+                EditClass()
+            else:
+                print('Access denied. Only tutors can perform this action.')
         else:
             print('Invalid choice. Please try again.')
 
 
-
-
-
 def TutorMenu():
     while True:
+        print('\n')
         print('Tutor Menu')
         print("1. Add Class Information ")
         print("2. View Students enrolled in my Class")
         print("3. Change Password")
 
-        choice = int(input("Enter your choice: "))
-        if choice == 1: #Done
-            ClassMenu('Tutor')  
-        elif choice == 2:
+        choice = input("Enter your choice: ")
+        if choice == '1': #Done
+            ClassMenu('Student')  
+        elif choice == '2':
             tutor_name = input("Enter tutor name: ")
             ViewEnrolledStud(tutor_name)
-        elif choice == 3:  #Done
+        elif choice == '3':  #Done
             ChangePW('Tutor')
         else:
             print('Invalid input,please enter number 1 to 3 only.')

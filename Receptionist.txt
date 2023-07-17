@@ -1,3 +1,2 @@
-slave	slavery123
-black	cotton
 frontd2	123456
+james	123456	

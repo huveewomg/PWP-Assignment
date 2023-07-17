@@ -40,6 +40,5 @@ Student49	password49	Moson	3	Science	Mathematics	History
 Student50	password50	Han	2	History	Malay	English
 Student51	password51	Carter	1	Mathematics	Science	English
 Student52	password52	Sofia	2	English	History	Malay
-Student53	password53	Will	3	History	Malay	Science
+Student53	password53	Will	3	History	Science	Malay
 Student54	password54	Abigail	1	Malay	English	Science
-tester	123456	JASON BONG	3	Science	English	N/A
