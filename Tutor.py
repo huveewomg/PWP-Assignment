@@ -112,6 +112,7 @@ def EditClass(user):# need fix on searching class to update it filter keyword ea
             print('')
             print('1. Add Class')
             print('2. Edit Class')
+            print('3. Go Back')
             choice = input(' Enter Your Choice: ')
             if choice == '1':
                 subject = input('Enter the subject: ')
@@ -171,7 +172,9 @@ def EditClass(user):# need fix on searching class to update it filter keyword ea
                     print('Class edited successfully!')
                 else:
                     print('Subject not found.')
-
+            elif choice == '3':
+                return
+            
             else:
                 print('Invalid choice. Please try again.')
 
@@ -183,7 +186,8 @@ def ClassMenu(user):
         
         if user == 'Tutor':  # Assuming the user object has a 'role' attribute
             print('2. Add / Edit Class (Only For Tutor)')
-            choice = input('Enter your choice (1 or 2): ')
+            print('3. Go Back')
+            choice = input('Enter your choice (1 or 3): ')
         else:
             choice = input('Enter your choice: ')
         
@@ -207,6 +211,8 @@ def ClassMenu(user):
                 EditClass()
             else:
                 print('Access denied. Only tutors can perform this action.')
+        elif choice == '3':
+            return
         else:
             print('Invalid choice. Please try again.')
 
@@ -218,15 +224,18 @@ def TutorMenu():
         print("1. Add Class Information ")
         print("2. View Students enrolled in my Class")
         print("3. Change Password")
+        print('4. Logout')
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
-            ClassMenu('Student')  
+            ClassMenu('Tutor')  
         elif choice == '2':
             tutor_name = input("Enter tutor name: ")
             ViewEnrolledStud(tutor_name)
         elif choice == '3':  #Done
             ChangePW('Tutor')
+        elif choice == '4':
+            return
         else:
             print('Invalid input,please enter number 1 to 3 only.')
             print("")

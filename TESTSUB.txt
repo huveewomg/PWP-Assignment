@@ -1,84 +1,127 @@
-#Common Subject
-
-Subject: Science
-Lecturer: cynthia
-Charges: RM70 per month
-Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
-
 Subject: Malay
-Lecturer: lect1
-Charges: RM50 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
-
-Subject: English
-Lecturer: lect1
-Charges: RM50 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
-
-Subject: History
-Lecturer: lect2
-Charges: RM50 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor1
+Class Schedule: 
+Monday:
+4:00 PM - 5:30 PM: Level 1
+5:45 PM - 6:15 PM: Level 5
+6:30 PM - 8:00 PM: Level 4
+Tuesday: 
+4:00 PM - 5:30 PM: Level 3
+5:45 PM - 6:15 PM: Level 2
 
 Subject: Mathematics
-Lecturer: lect3
-Charges: RM70 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor2
+Class Schedule: 
+Monday:
+4:00 PM - 5:30 PM: Level 2
+5:45 PM - 6:15 PM: Level 1
+6:30 PM - 8:00 PM: Level 5
+Tuesday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 3
 
+Subject: Science
+Lecturer: Tutor3
+Class Schedule: 
+Monday:
+4:00 PM - 5:30 PM: Level 3
+5:45 PM - 6:15 PM: Level 2
+6:30 PM - 8:00 PM: Level 1
+Tuesday:
+4:00 PM - 5:30 PM: Level 5
+5:45 PM - 6:15 PM: Level 4
 
-# F4/F5 execlusive 
+Subject: English
+Lecturer: Tutor4
+Class Schedule: 
+Monday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 3
+6:30 PM - 8:00 PM: Level 2
+Tuesday:
+4:00 PM - 5:30 PM: Level 1
+5:45 PM - 6:15 PM: Level 5
+
+Subject: History
+Lecturer: Tutor5
+Class Schedule: 
+Monday:
+4:00 PM - 5:30 PM: Level 5
+5:45 PM - 6:15 PM: Level 4
+6:30 PM - 8:00 PM: Level 3
+Tuesday:
+4:00 PM - 5:30 PM: Level 2
+5:45 PM - 6:15 PM: Level 1
+
 
 Subject: Biology
-Lecturer: lect4
-Charges: RM80 per month 
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor10
+Class Schedule: 
+Thursday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 5
+
 
 Subject: Addtional Mathematics
-Lecturer: lect3
-Charges: RM80 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor13
+Class Schedule: 
+Friday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 5
 
 Subject: Bible Knowledge
-Lecturer: fatherjohn
-Charges: RM69 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor14
+Class Schedule: 
+Saturday:
+9:00 AM - 10:30 AM: Level 4
+10:45 AM - 12:15 PM: Level 5
+
 
 Subject: Entrepreneurial Studies
-Lecturer: lect6
-Charges: RM60 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor11
+Class Schedule: 
+Thursday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 5
+
 
 Subject: Economics
-Lecturer: lect5
-Charges: RM70 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor12
+Class Schedule: 
+Friday:
+4:00 PM - 5:30 PM: Level 5
+5:45 PM - 6:15 PM: Level 4
 
 Subject: Account
-Lecturer: lect5
-Charges: RM70 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor7
+Class Schedule: 
+Wednesday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 5
+
 
 Subject: Business
-Lecturer: lect5
-Charges: RM50 per month
-Class Schedule: Monday, Wednesday, Friday (9 AM - 11 AM)
+Lecturer: Tutor9
+Class Schedule: 
+Wednesday:
+4:00 PM - 5:30 PM: Level 5
+5:45 PM - 6:15 PM: Level 4
+
 
 Subject: Physics
-Lecturer: cynthia
-Charges: RM80 per month
-Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
+Lecturer: Tutor8
+Class Schedule: 
+Thursday:
+4:00 PM - 5:30 PM: Level 5
+5:45 PM - 6:15 PM: Level 4
+
 
 Subject: Chemistry
-Lecturer: cynthia
-Charges: RM80 per month
-Class Schedule: Tuesday, Thursday (1 PM - 3 PM)
+Lecturer: Tutor6
+Class Schedule: 
+Wednesday:
+4:00 PM - 5:30 PM: Level 4
+5:45 PM - 6:15 PM: Level 5
 
-Subject: Chinese
-Lecturer: lectx
-Charges: RM40 per month
-Class Schedule: Tuesday (9PM - 11PM) 
 
-Subject: Bible Knowledge
-Lecturer: John
-Charges: RM69 per month
-Class Schedule: Sunday (8am - 10am)
+

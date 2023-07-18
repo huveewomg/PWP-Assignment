@@ -1,8 +1,15 @@
-tutor0	12345	Dr.P	Chemistry	Science	Physics
-tutor1	12345	Mr.J	Malay	English	N/A
-tutor2	12345	Mrs.T	History	N/A	N/A
-tutor3	12345	Mr.C	Mathematics	Addtional Mathematics	N/A
-tutor4	12345	Mrs.J	Biology	Addtional Science	N/A
-tutor5	12345	Mr.D	Business	Account	Economics
-tutor6	12345	Mrs.P	Entrepreneurial Studies	N/A	N/A
-john	12345	Father John	Bible Knowledge	N/A	N/A
+tutor1	12345	Dr.P	6	Malay	N/A	N/A	1500
+tutor2	12345	Mr.J	6	Mathematics	N/A	N/A	1500
+tutor3	12345	Mrs.T	6	Science	N/A	N/A	1500
+tutor4	12345	Mr.C	6	English	N/A	N/A	1500
+tutor5	12345	Mrs.J	6	History	N/A	N/A	1500
+tutor6	12345	Mr.D	6	Chemistry	N/A	N/A	1500
+tutor7	12345	Mrs.P	6	Account	N/A	N/A	1500
+tutor8	12345	Mr.x	6	Physics	N/A	N/A	1500
+tutor9	12345	test	6	Business	N/A	N/A	1500
+tutor10	12345	Mrs.P	6	Biology	N/A	N/A	1500
+tutor11	12345	MR.Y	6	Entrepreneurial Studies	N/A	N/A	1500
+tutor12	12345	test	6	Economics	N/A	N/A
+tutor13	12345	Mrs.P	6	Additional Mathematics	N/A	N/A	1500
+tutor14	12345	Mrs.Z	6	Bible Knowledge	N/A	N/A	1500jason	123456	jason	1	N/A	N/A	N/A	1500	
+jason	123456	jason	6	N/A	N/A	N/A	1500	

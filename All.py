@@ -29,9 +29,8 @@ def login(user): #login works for everyone call function with '???'
 
     file.close()
     print("Maximum login attempts reached.")
-    print("")
-    mainmenu()
-    return False
+    exit()
+
 
 def register(user):  # Register function for everyone
     data = []
@@ -72,8 +71,23 @@ def register(user):  # Register function for everyone
         if user == 'Tutor' or 'Receptionist':
             break
         else:
-            form = input('Enter Form 1/2/3/4/5: ')
+            form = input('Enter Form 1/2/3/4/5 (ONLY 1-5): ')
             data.append(form)
+            break
+
+    while True:
+        if user != 'Tutor':
+            break
+        else:
+            valid_level = False
+            while not valid_level:
+                print ('Assign Tutor to level (If handle every level enter 6)')
+                level = int(input('Please enter the level the Tutor is assigned (1-6): '))
+                if level < 1 or level > 6:
+                    print('Invalid number. Please enter a number between 1 and 6.')
+                else:
+                    data.append(str(level))
+                    valid_level = True
             break
 
     while True:
@@ -88,6 +102,15 @@ def register(user):  # Register function for everyone
                 else:
                     data.append(subject)
         break
+
+    while True: 
+        if user != 'Tutor':
+            break
+        else: 
+            salary = input('Enter Salary of Tutor per month: ')
+            data.append(salary)
+        break
+
     
     data2.append(data)
     with open(user + '.txt', 'a') as file:
@@ -98,15 +121,22 @@ def register(user):  # Register function for everyone
             file.write('\n')  # Start a new line after writing data
     print("Registration successful.")
     print(user + ' added successfully')
+    return
 
 def EditMenu(user): #Edit menu for add or remove
-    print('1. Add new '+ user)
-    print('2. Remove ' + user)
-    choice = int(input('What do you want to do ? '))
-    if choice == 1:
-        register(user)
-    elif choice == 2:
-        delete(user)
+    while True:
+        print('1. Add new '+ user)
+        print('2. Remove ' + user)
+        print('3. Go back')
+        choice =input('What do you want to do ? ')
+        if choice == '1':
+            register(user)
+        elif choice == '2':
+            delete(user)
+        elif choice == '3':
+            return
+        else: 
+            print('Invalid Input, Please enter number 1 to 3 only. ')
 
 def delete(user): #delete existing user 
     # Read data from respective user files
@@ -262,7 +292,7 @@ def ReceptionistMenu(): #Reception Menu
         elif choice == '2':
             UpdateSub('Student')
         elif choice == '3':
-            Payment()
+            Payment(is_receptionist=True)
         elif choice == '4':  #Done
             ticket_menu('Receptionist')
         elif choice == '5':
@@ -270,10 +300,10 @@ def ReceptionistMenu(): #Reception Menu
         elif choice == '6':
             return
         else:
-            print('Invalid input,please enter number 1 to 4 only.')
+            print('Invalid input,please enter number 1 to 6 only.')
             print("")
 
-def Payment():
+def Payment(is_receptionist=False): #uses 
     # Read student data
     student_data = []
     with open('Student.txt', 'r') as file:
@@ -284,7 +314,19 @@ def Payment():
                 student_data.append(student_info)
 
     # Declare and initialize user_name variable and ask for input
-    user_name = input("Enter your name: ")
+    user_name = input("Enter username: ")
+
+    # Find student by name
+    user_index = None
+    for i, student_info in enumerate(student_data):
+        if student_info[0] == user_name:
+            user_index = i
+            break
+
+    # Check if student name is found
+    if user_index is None:
+        print("Student username not found. \n")
+        return
 
     # Read pricing information
     pricing_info = {}
@@ -297,38 +339,74 @@ def Payment():
                     subject, price = values
                     pricing_info[subject] = float(price)
 
-    # Find student by name and calculate total price
+# Find student by name and calculate total price
     total_price = 0
+    payable_amount = None
     for student_info in student_data:
         if student_info[0] == user_name:
             subjects = student_info[4:]
-            total_price = sum(pricing_info[subject] for subject in subjects)
+            for subject in subjects:
+                if subject in pricing_info:
+                    total_price += pricing_info[subject]
+                if len(student_info) > 4:
+                    last_element = student_info[-1]
+                    try:
+                        payable_amount = float(last_element)
+                    except ValueError:
+                        payable_amount = None
             break
+    if payable_amount is None:
+        print("Total Price for {}: RM{:.2f}".format(user_name, total_price))
+    elif payable_amount == 0:
+        print("Payable Amount for {}: RM{:.2f}".format(user_name, payable_amount))
+    elif payable_amount > 0:
+        print("Payable Amount for {}: RM{:.2f}".format(user_name, payable_amount))
+    elif payable_amount < 0:
+        print("Overpaid for {}: RM{:.2f}".format(user_name, payable_amount))
 
-    # Display the total price
-    print("Total Price for {}: RM{:.2f}".format(user_name, total_price))  # checkout interface
-    total_price = str(total_price)
-    print('Do you want to pay now?')
-    choice = input('Yes or No (Enter Y/N): ').capitalize()
-    if choice == 'Y':
-        print('Which method do you prefer to pay with?')
-        print('1. Bank Transfer')
-        print('2. E-wallet')
-        choice = int(input('Enter only 1/2: '))
-        Company_Name = input('What Bank/E-wallet?: ').upper()
-        acc_num = int(input('Enter your Account Number: '))
-        print('Connecting to ' + Company_Name + ' Server...')
-    # add chances to fail for realistic purpose without random library 
-    #fix later
-        print('Offical Receipt of Brilliant Tuition Centre(BTC)') # receipt part
-        print('_________________________________________________')
-        print(user_name + ': RM'+ total_price)
-        print('Paid with: ' + Company_Name)
-        print('')
-        print('Thank you! ')
-        print('')
+
+
+    if is_receptionist:
+        # Allow receptionist to proceed with payment
+        print('Do you want to proceed with the payment?')
+        choice = input('Yes or No (Enter Y/N): ').capitalize()
+
+        if choice == 'Y':
+            amount = float(input('Enter the payment amount: RM'))
+            balance = payable_amount - amount if payable_amount is not None else total_price - amount
+            print('Which method do you prefer to pay with?')
+            print('1. Bank Transfer')
+            print('2. E-wallet')
+            choice = int(input('Enter only 1/2: '))
+            Company_Name = input('What Bank/E-wallet?: ').upper()
+            acc_num = input('Enter your Account Number: ')
+            print('Connecting to ' + Company_Name + ' Server...')
+
+            # Update the student's payment status and amount
+            if payable_amount is not None:
+                student_data[user_index][-1] = str(balance)
+            else:
+                student_data[user_index].append(str(balance))
+
+            # Write updated student data back to the file
+            with open('Student.txt', 'w') as file:
+                for student_info in student_data:
+                    file.write('\t'.join(student_info) + '\n')
+
+            # Print receipt
+            print('Official Receipt of Brilliant Tuition Centre (BTC)')
+            print('_________________________________________________')
+            print(user_name + ': RM' + str(amount))
+            print('Paid with: ' + Company_Name)
+            print('')
+            print('Thank you!')
+
+
+        
     else:
-        return
+        # Student can only view the total price, no payment actions allowed
+        print('Payment option not available for students.')
+
 
 def generate_ticket_number(file_name):
     try:
@@ -471,28 +549,102 @@ def ticket_menu(user):
 
 
 # Start of Admin Function
-def AdminMenu(): #Admin Menu All function for admin
+#function 1,2,4 are global function
+def AdminMenu(): #Admin Menu All function for admin   
     while True:
         print('Admin Menu')
         print("1. Edit Receptionist")
         print("2. Edit Tutor")
         print("3. Income Report")
         print("4. Change Password")
+        print('5. Logout')
         choice = input("Enter your choice: ")
         if choice == '1':
             EditMenu('Receptionist')
         elif choice == '2':
             EditMenu('Tutor')
         elif choice == '3':
-            Income()
+            IncomeMenu()
         elif choice == '4':
             ChangePW('Admin')
+        elif choice == '5':
+            return
         else:
-            print('Invalid input,please enter number 1 to 4 only.')
+            print('Invalid input,please enter number 1 to 5 only.')
             print("")
 
-def Income():
-    print('')
+
+def IncomeMenu():
+    while True:
+        print()
+        print('Check Income')
+        print('1. Check Income based on Level')
+        print('2. Check Income based on Subject')
+        print('3. Check Profit This Month')
+        print('4. Return to Admin Menu')
+
+        choice = input('Enter your Choice (1-4): ')
+
+        if choice == '1':
+            level = int(input('Enter the level (1-5): '))
+            income = calc_income('level', level)
+            print(f"Income per month for Level {level}: RM{income}")
+        elif choice == '2':
+            subject = input('Enter the subject: ').capitalize
+            income =  calc_income('subject', subject)
+            print(f"Income per month for Subject {subject}: RM{income}")
+        elif choice == '3':
+            profit()
+            print('Feature developing.')
+        elif choice == '4':
+            return
+        else:
+            print('Invalid choice. Please try again.')
+
+
+def calc_income(option, value):
+    # Read student data
+    student_data = []
+    with open('Student.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                student_info = line.split('\t')
+                student_data.append(student_info)
+
+    # Read subject pricing data
+    subject_pricing = {}
+    with open('Subject_Pricing.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                subject, price = line.split('\t')
+                subject_pricing[subject] = int(price)
+
+    # Calculate income per month based on the option
+    income = 0
+    if option == 'level':
+        for student_info in student_data:
+            if int(student_info[3]) == value:
+                for subject in student_info[4:]:
+                    income += subject_pricing.get(subject, 0)
+    elif option == 'subject':
+        for student_info in student_data:
+            if value in student_info[4:]:
+                income += student_info.count(value) * subject_pricing.get(value, 0)
+
+    return income
+
+def profit():
+    print('\n This will count the profit made this month')
+    expenses = int(input('Enter your expenses (rent and bill): '))
+    Total = 'Income from student'
+    Salary = 'Salary of tutors'
+    Profit = Total - Salary - expenses
+    print(Profit)
+
+# Check for profit as well. 
+
 
 
 
@@ -508,6 +660,7 @@ def TutorMenu():
         print("1. Add Class Information ")
         print("2. View Students enrolled in my Class")
         print("3. Change Password")
+        print('4. Logout ')
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
@@ -517,6 +670,9 @@ def TutorMenu():
             ViewEnrolledStud(tutor_name)
         elif choice == '3':  #Done
             ChangePW('Tutor')
+        elif choice == '4':
+            print('Logout Successful')
+            return
         else:
             print('Invalid input,please enter number 1 to 3 only.')
             print("")
@@ -535,6 +691,7 @@ def StudentMenu():
         print('2. Send / Delete Request')
         print('3. Fee')
         print('4. Change Password ')
+        print('5. Logout')
         choice = input('Enter Your Choice: ')
         if choice == '1':
             ClassMenu()
@@ -544,6 +701,14 @@ def StudentMenu():
             Payment()
         elif choice == '4':
             ChangePW('Student')
+        elif choice == '5':
+            print('Logout Successful')
+            return
+
+        else:
+            print('Invalid input,please enter number 1 to 5 only.')
+
+
 
 
 
@@ -557,19 +722,21 @@ def mainmenu(): # start screen
         print("2.Receptionist")
         print("3.Tutor")
         print("4.Student")
-        choice = int(input("Enter your choice: "))
-        if choice == 1:
+        print('5.Exit')
+        choice = input("Enter your choice: ")
+        if choice == '1':
             login('Admin')
-        elif choice == 2:
+        elif choice == '2':
             login('Receptionist')
-        elif choice == 3:
+        elif choice == '3':
             login('Tutor')
-        elif choice == 4:
+        elif choice == '4':
             login('Student')
+        elif choice == '5':
+            exit()
         else:
-            print('Invalid input,please enter number 1 to 4 only.')
+            print('Invalid input,please enter number 1 to 5 only.')
             print("")
-            mainmenu()
 
     
 mainmenu()
