@@ -28,10 +28,10 @@ Student37	password37	Liam	1	English	History	Mathematics
 Student38	password38	Ava	1	Mathematics	Malay	Science
 Student39	password39	Noah	1	English	History	Malay
 Student40	password40	Emma	1	Science	English	History
-Student41	password41	Lucas	2	History	Malay	Mathematics
-Student42	password42	Bella	2	English	Science	History
-Student43	password43	Oliver	3	Mathematics	Malay	Science
-Student44	password44	Mia	2	Malay	History	English
+Student41	password41	Lucas	2	History	English	Science		-110.0
+Student42	password42	Bella	2	English	Science	History		-99.0
+Student43	password43	Oliver	3	Mathematics	Malay	Science	-99.0
+Student44	password44	Mia	2	Malay	History	English	-20.0
 Student45	password45	Aiden	1	Science	Mathematics	History
 Student46	password46	Chet	2	History	English	Malay
 Student47	password47	Elih	1	Mathematics	Malay	Science
