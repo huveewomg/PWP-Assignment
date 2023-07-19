@@ -18,7 +18,7 @@ def login(user): #login works for everyone call function with '???'
                 print("Welcome " + UserID + "!")
                 print("")
                 menu_function = user + "Menu"
-                globals()[menu_function]()  # Call the respective menu function based on the user role
+                globals()[menu_function](UserID , Password)  # Call the respective menu function based on the user role
                 return False
 
         print("Incorrect credentials.")
@@ -30,7 +30,6 @@ def login(user): #login works for everyone call function with '???'
     file.close()
     print("Maximum login attempts reached.")
     exit()
-
 
 def register(user):  # Register function for everyone
     data = []
@@ -46,7 +45,7 @@ def register(user):  # Register function for everyone
     
     while True:  # Validation for password length
         p1 = input("Password: ")
-        if len(p1) >= 6:  # Check if password length is at least 8 characters
+        if len(p1) >= 6:  # Check if password length is at least 6 characters
             break
         else:
             print("Password should be at least 6 characters.")
@@ -177,7 +176,7 @@ def delete(user): #delete existing user
     else:
         print(user +' deletion canceled.')
 
-def ChangePW(user): #change password for everyone
+def ChangePW(user, username, password):
     # read data from respective user files
     user_data = []
     with open(user + ".txt", "r") as file:
@@ -186,9 +185,6 @@ def ChangePW(user): #change password for everyone
             if line:
                 user_info = line.split('\t')
                 user_data.append(user_info)
-
-    # Prompt for the username
-    username = input("Enter username: ")
 
     # Find the user record based on the username
     user_index = None
@@ -200,24 +196,18 @@ def ChangePW(user): #change password for everyone
         print(user + " username not found.")
         return
 
-    # Prompt for the current password and verify it
-    current_password = input("Enter current password: ")
-    stored_password = user_data[user_index][1]
-
-    if current_password != stored_password:
-        print("Incorrect password.")
-        return
-
     # Prompt for the new password and update the data structure
     while True:
         new_password = input("Enter new password: ")
-        if new_password == stored_password:
+
+        if len(new_password) < 6:
+            print("Password must be at least 6 characters long. Please enter a different password.")
+        elif new_password == password:
             print('New password cannot be the same as the previous password. Please enter a different password.')
         else:
             break
-    user_data[user_index][1] = new_password
 
- 
+    user_data[user_index][1] = new_password
 
     # Write the updated data structure back to the text file
     with open(user + ".txt", "w") as file:
@@ -225,6 +215,7 @@ def ChangePW(user): #change password for everyone
             file.write("\t".join(user_info) + "\n")
 
     print("Password updated successfully.")
+
 
 def UpdateSub(user): #Reassign subject menu
     user_data = []
@@ -276,7 +267,7 @@ def UpdateSub(user): #Reassign subject menu
 
 
 # Start of Receptionist Function
-def ReceptionistMenu(): #Reception Menu 
+def ReceptionistMenu(username, password): #Reception Menu 
     while True:
         print('Receptionist Menu')
         print("1. Register / Delete Student ")
@@ -296,14 +287,14 @@ def ReceptionistMenu(): #Reception Menu
         elif choice == '4':  #Done
             ticket_menu('Receptionist')
         elif choice == '5':
-            ChangePW('Receptionist')
+            ChangePW('Receptionist' , username, password)
         elif choice == '6':
             return
         else:
             print('Invalid input,please enter number 1 to 6 only.')
             print("")
 
-def Payment(is_receptionist=False): #uses 
+def Payment(is_receptionist=False): #can be used by student as well call with Payment()
     # Read student data
     student_data = []
     with open('Student.txt', 'r') as file:
@@ -406,7 +397,6 @@ def Payment(is_receptionist=False): #uses
     else:
         # Student can only view the total price, no payment actions allowed
         print('Payment option not available for students.')
-
 
 def generate_ticket_number(file_name):
     try:
@@ -549,8 +539,7 @@ def ticket_menu(user):
 
 
 # Start of Admin Function
-#function 1,2,4 are global function
-def AdminMenu(): #Admin Menu All function for admin   
+def AdminMenu(username, password):  # Modify the AdminMenu function to receive username and password
     while True:
         print('Admin Menu')
         print("1. Edit Receptionist")
@@ -560,19 +549,18 @@ def AdminMenu(): #Admin Menu All function for admin
         print('5. Logout')
         choice = input("Enter your choice: ")
         if choice == '1':
-            EditMenu('Receptionist')
+            EditMenu('Receptionist')  # Pass the username and password to the EditMenu function
         elif choice == '2':
-            EditMenu('Tutor')
+            EditMenu('Tutor',)  # Pass the username and password to the EditMenu function
         elif choice == '3':
             IncomeMenu()
         elif choice == '4':
-            ChangePW('Admin')
+            ChangePW('Admin' ,username, password)  # Pass the username to the ChangePW function
         elif choice == '5':
             return
         else:
-            print('Invalid input,please enter number 1 to 5 only.')
+            print('Invalid input, please enter number 1 to 5 only.')
             print("")
-
 
 def IncomeMenu():
     while True:
@@ -590,17 +578,15 @@ def IncomeMenu():
             income = calc_income('level', level)
             print(f"Income per month for Level {level}: RM{income}")
         elif choice == '2':
-            subject = input('Enter the subject: ').capitalize
+            subject = input('Enter the subject: ').capitalize()
             income =  calc_income('subject', subject)
             print(f"Income per month for Subject {subject}: RM{income}")
         elif choice == '3':
-            profit()
-            print('Feature developing.')
+            calculate_profit()
         elif choice == '4':
             return
         else:
             print('Invalid choice. Please try again.')
-
 
 def calc_income(option, value):
     # Read student data
@@ -626,34 +612,43 @@ def calc_income(option, value):
     if option == 'level':
         for student_info in student_data:
             if int(student_info[3]) == value:
-                for subject in student_info[4:]:
-                    income += subject_pricing.get(subject, 0)
+                for subject in student_info[4:7]:
+                    if subject in subject_pricing:
+                        income += subject_pricing[subject]
     elif option == 'subject':
         for student_info in student_data:
-            if value in student_info[4:]:
-                income += student_info.count(value) * subject_pricing.get(value, 0)
+            if value in student_info[4:7]:
+                if value in subject_pricing:
+                    income += subject_pricing[value]
 
     return income
 
-def profit():
-    print('\n This will count the profit made this month')
-    expenses = int(input('Enter your expenses (rent and bill): '))
-    Total = 'Income from student'
-    Salary = 'Salary of tutors'
-    Profit = Total - Salary - expenses
-    print(Profit)
+def calculate_profit():
+    tutor_salary = 0
+    with open('Tutor.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                tutor_info = line.split('\t')
+                if len(tutor_info) > 1:
+                    salary = tutor_info[-1]
+                    if salary.isdigit():
+                        tutor_salary += int(salary)
 
-# Check for profit as well. 
+    total_income = calc_income('level', 1) + calc_income('level', 2) + calc_income('level', 3) + calc_income('level', 4) + calc_income('level', 5)
+    total_expenses = float(input('Other expenses such as Rent: '))
 
-
-
-
+    profit = total_income - tutor_salary - total_expenses
+    print('\n' + "Total Income: RM{:.2f}".format(total_income))
+    print("Total Expenses: RM{:.2f}".format(total_expenses))
+    print("Total Salary: RM{:.2f}".format(tutor_salary))
+    print("Profit: RM{:.2f}".format(profit))
 
 # End of Admin Function
 
 
 # Start of Tutor Function
-def TutorMenu():
+def TutorMenu(username, password):
     while True:
         print('\n')
         print('Tutor Menu')
@@ -669,7 +664,7 @@ def TutorMenu():
             tutor_name = input("Enter tutor name: ")
             ViewEnrolledStud(tutor_name)
         elif choice == '3':  #Done
-            ChangePW('Tutor')
+            ChangePW('Tutor', username, password)
         elif choice == '4':
             print('Logout Successful')
             return
@@ -677,14 +672,11 @@ def TutorMenu():
             print('Invalid input,please enter number 1 to 3 only.')
             print("")
 
-
-
-
-# Enf of Tutor Function
+# End of Tutor Function
 
 
 # Start of Student Function
-def StudentMenu():
+def StudentMenu(username, password):
     while True:
         print('Student Menu')
         print('1. Check Timetable')
@@ -696,11 +688,11 @@ def StudentMenu():
         if choice == '1':
             ClassMenu()
         elif choice == '2':
-            TicketMenu()
+            ticket_menu()
         elif choice == '3':
             Payment()
         elif choice == '4':
-            ChangePW('Student')
+            ChangePW('Student',username, password)
         elif choice == '5':
             print('Logout Successful')
             return
@@ -710,9 +702,9 @@ def StudentMenu():
 
 
 
-
-
 # End of Student Function
+
+
 
 
 def mainmenu(): # start screen 
@@ -742,6 +734,6 @@ def mainmenu(): # start screen
 mainmenu()
 
 #Income (admin) number of subject find price* student in the class1
-#Payment for recep and student need double confirm
+#Payment for recep and student need double confirm (DONE)
 #Search for class func for both tutor and student double check
-#back button for every page
+#back button for every page (Need double check)

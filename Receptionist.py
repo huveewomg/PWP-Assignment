@@ -430,4 +430,6 @@ def ReceptionistMenu(): #Reception Menu
             print('Invalid input,please enter number 1 to 4 only.')
             print("")
 
+
+# Double check if student information is required. 
 ReceptionistMenu()
