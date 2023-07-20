@@ -1,127 +1,58 @@
-Subject: Malay
-Lecturer: Tutor1
-Class Schedule: 
-Monday:
-4:00 PM - 5:30 PM: Level 1
-5:45 PM - 6:15 PM: Level 5
-6:30 PM - 8:00 PM: Level 4
-Tuesday: 
-4:00 PM - 5:30 PM: Level 3
-5:45 PM - 6:15 PM: Level 2
+Subject:Malay|Tutor:Tutor1|Day:Monday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 1
+Subject:Malay|Tutor:Tutor1|Day:Monday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
+Subject:Malay|Tutor:Tutor1|Day:Monday|StartTime:6:30 PM|EndTime:8:00 PM|Level:Level 4
+Subject:Malay|Tutor:Tutor1|Day:Tuesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 3
+Subject:Malay|Tutor:Tutor1|Day:Wednesday|StartTime:5:46PM|EndTime:6:16PM|Level:Level 2
 
-Subject: Mathematics
-Lecturer: Tutor2
-Class Schedule: 
-Monday:
-4:00 PM - 5:30 PM: Level 2
-5:45 PM - 6:15 PM: Level 1
-6:30 PM - 8:00 PM: Level 5
-Tuesday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 3
+Subject:Mathematics|Tutor:Tutor2|Day:Monday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 2
+Subject:Mathematics|Tutor:Tutor2|Day:Monday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 1
+Subject:Mathematics|Tutor:Tutor2|Day:Monday|StartTime:6:30 PM|EndTime:8:00 PM|Level:Level 5
+Subject:Mathematics|Tutor:Tutor2|Day:Tuesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:Mathematics|Tutor:Tutor2|Day:Tuesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 3
 
-Subject: Science
-Lecturer: Tutor3
-Class Schedule: 
-Monday:
-4:00 PM - 5:30 PM: Level 3
-5:45 PM - 6:15 PM: Level 2
-6:30 PM - 8:00 PM: Level 1
-Tuesday:
-4:00 PM - 5:30 PM: Level 5
-5:45 PM - 6:15 PM: Level 4
+Subject:Science|Tutor:Tutor3|Day:Monday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 3
+Subject:Science|Tutor:Tutor3|Day:Monday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 2
+Subject:Science|Tutor:Tutor3|Day:Monday|StartTime:6:30 PM|EndTime:8:00 PM|Level:Level 1
+Subject:Science|Tutor:Tutor3|Day:Tuesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 5
+Subject:Science|Tutor:Tutor3|Day:Tuesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 4
 
-Subject: English
-Lecturer: Tutor4
-Class Schedule: 
-Monday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 3
-6:30 PM - 8:00 PM: Level 2
-Tuesday:
-4:00 PM - 5:30 PM: Level 1
-5:45 PM - 6:15 PM: Level 5
+Subject:English|Tutor:Tutor4|Day:Monday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:English|Tutor:Tutor4|Day:Monday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 3
+Subject:English|Tutor:Tutor4|Day:Monday|StartTime:6:30 PM|EndTime:8:00 PM|Level:Level 2
+Subject:English|Tutor:Tutor4|Day:Tuesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 1
+Subject:English|Tutor:Tutor4|Day:Tuesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
 
-Subject: History
-Lecturer: Tutor5
-Class Schedule: 
-Monday:
-4:00 PM - 5:30 PM: Level 5
-5:45 PM - 6:15 PM: Level 4
-6:30 PM - 8:00 PM: Level 3
-Tuesday:
-4:00 PM - 5:30 PM: Level 2
-5:45 PM - 6:15 PM: Level 1
+Subject:History|Tutor:Tutor5|Day:Monday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 5
+Subject:History|Tutor:Tutor5|Day:Monday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 4
+Subject:History|Tutor:Tutor5|Day:Monday|StartTime:6:30 PM|EndTime:8:00 PM|Level:Level 3
+Subject:History|Tutor:Tutor5|Day:Tuesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 2
+Subject:History|Tutor:Tutor5|Day:Tuesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 1
 
+Subject:Biology|Tutor:Tutor10|Day:Thursday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:Biology|Tutor:Tutor10|Day:Thursday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
 
-Subject: Biology
-Lecturer: Tutor10
-Class Schedule: 
-Thursday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 5
+Subject:Additional Mathematics|Tutor:Tutor13|Day:Friday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:Additional Mathematics|Tutor:Tutor13|Day:Friday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
 
+Subject:Bible Knowledge|Tutor:Tutor14|Day:Saturday|StartTime:9:00 AM|EndTime:10:30 AM|Level:Level 4
+Subject:Bible Knowledge|Tutor:Tutor14|Day:Saturday|StartTime:10:45 AM|EndTime:12:15 PM|Level:Level 5
 
-Subject: Addtional Mathematics
-Lecturer: Tutor13
-Class Schedule: 
-Friday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 5
+Subject:Entrepreneurial Studies|Tutor:Tutor11|Day:Thursday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:Entrepreneurial Studies|Tutor:Tutor11|Day:Thursday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
 
-Subject: Bible Knowledge
-Lecturer: Tutor14
-Class Schedule: 
-Saturday:
-9:00 AM - 10:30 AM: Level 4
-10:45 AM - 12:15 PM: Level 5
+Subject:Economics|Tutor:Tutor12|Day:Friday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 5
+Subject:Economics|Tutor:Tutor12|Day:Friday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 4
 
+Subject:Account|Tutor:Tutor7|Day:Wednesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:Account|Tutor:Tutor7|Day:Wednesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
 
-Subject: Entrepreneurial Studies
-Lecturer: Tutor11
-Class Schedule: 
-Thursday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 5
+Subject:Business|Tutor:Tutor9|Day:Wednesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 5
+Subject:Business|Tutor:Tutor9|Day:Wednesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 4
 
+Subject:Physics|Tutor:Tutor8|Day:Thursday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 5
+Subject:Physics|Tutor:Tutor8|Day:Thursday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 4
 
-Subject: Economics
-Lecturer: Tutor12
-Class Schedule: 
-Friday:
-4:00 PM - 5:30 PM: Level 5
-5:45 PM - 6:15 PM: Level 4
-
-Subject: Account
-Lecturer: Tutor7
-Class Schedule: 
-Wednesday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 5
-
-
-Subject: Business
-Lecturer: Tutor9
-Class Schedule: 
-Wednesday:
-4:00 PM - 5:30 PM: Level 5
-5:45 PM - 6:15 PM: Level 4
-
-
-Subject: Physics
-Lecturer: Tutor8
-Class Schedule: 
-Thursday:
-4:00 PM - 5:30 PM: Level 5
-5:45 PM - 6:15 PM: Level 4
-
-
-Subject: Chemistry
-Lecturer: Tutor6
-Class Schedule: 
-Wednesday:
-4:00 PM - 5:30 PM: Level 4
-5:45 PM - 6:15 PM: Level 5
-
+Subject:Chemistry|Tutor:Tutor6|Day:Wednesday|StartTime:4:00 PM|EndTime:5:30 PM|Level:Level 4
+Subject:Chemistry|Tutor:Tutor6|Day:Wednesday|StartTime:5:45 PM|EndTime:6:15 PM|Level:Level 5
 
 

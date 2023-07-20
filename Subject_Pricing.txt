@@ -1,4 +1,4 @@
-Malay	50
+Malay	60
 English	50
 History	60
 Mathematics	70
