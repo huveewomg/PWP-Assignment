@@ -1,4 +1,3 @@
-
 # Function that are global 
 def login(user): #login works for everyone call function with '???'
     file = open(user + '.txt', "r")
@@ -18,7 +17,7 @@ def login(user): #login works for everyone call function with '???'
                 print("Welcome " + UserID + "!")
                 print("")
                 menu_function = user + "Menu"
-                globals()[menu_function]()  # Call the respective menu function based on the user role
+                globals()[menu_function](UserID , Password)  # Call the respective menu function based on the user role
                 return False
 
         print("Incorrect credentials.")
@@ -31,22 +30,27 @@ def login(user): #login works for everyone call function with '???'
     print("Maximum login attempts reached.")
     exit()
 
-
 def register(user):  # Register function for everyone
     data = []
     data2 = []
     
-    while True:  # Validation for username length
+    while True:  # Validation for username length and uniqueness
         username = input("Username: ")
-        if len(username) >= 1:  # Check if username length is at least 6 characters
-            data.append(username)
-            break
+        if len(username) >= 1:
+            with open(f"{user}.txt", "r") as file:
+                existing_usernames = [line.strip().split('\t')[0] for line in file]
+            
+            if username in existing_usernames:
+                print("Username already exists. Please choose a different username.")
+            else:
+                data.append(username)
+                break
         else:
-            print("Username should be at least 1 characters.")
+            print("Username should be at least 1 character.")
     
     while True:  # Validation for password length
         p1 = input("Password: ")
-        if len(p1) >= 6:  # Check if password length is at least 8 characters
+        if len(p1) >= 6:  # Check if password length is at least 6 characters
             break
         else:
             print("Password should be at least 6 characters.")
@@ -68,12 +72,17 @@ def register(user):  # Register function for everyone
             break
 
     while True: #ask for student's form hence only available for Student
-        if user == 'Tutor' or 'Receptionist':
+        if user != 'Student':
             break
         else:
-            form = input('Enter Form 1/2/3/4/5 (ONLY 1-5): ')
-            data.append(form)
-            break
+            while True:
+                form = int(input('Enter Form 1/2/3/4/5 (ONLY 1-5): '))
+                if form <= 5:
+                    data.append(form)
+                    break  # This should be aligned with the inner while loop
+                else:
+                    print('Please Enter number (1-5)')
+
 
     while True:
         if user != 'Tutor':
@@ -111,7 +120,7 @@ def register(user):  # Register function for everyone
             data.append(salary)
         break
 
-    
+
     data2.append(data)
     with open(user + '.txt', 'a') as file:
         for data in data2:
@@ -177,7 +186,7 @@ def delete(user): #delete existing user
     else:
         print(user +' deletion canceled.')
 
-def ChangePW(user): #change password for everyone
+def ChangePW(user, username, password):
     # read data from respective user files
     user_data = []
     with open(user + ".txt", "r") as file:
@@ -186,9 +195,6 @@ def ChangePW(user): #change password for everyone
             if line:
                 user_info = line.split('\t')
                 user_data.append(user_info)
-
-    # Prompt for the username
-    username = input("Enter username: ")
 
     # Find the user record based on the username
     user_index = None
@@ -200,24 +206,18 @@ def ChangePW(user): #change password for everyone
         print(user + " username not found.")
         return
 
-    # Prompt for the current password and verify it
-    current_password = input("Enter current password: ")
-    stored_password = user_data[user_index][1]
-
-    if current_password != stored_password:
-        print("Incorrect password.")
-        return
-
     # Prompt for the new password and update the data structure
     while True:
         new_password = input("Enter new password: ")
-        if new_password == stored_password:
+
+        if len(new_password) < 6:
+            print("Password must be at least 6 characters long. Please enter a different password.")
+        elif new_password == password:
             print('New password cannot be the same as the previous password. Please enter a different password.')
         else:
             break
-    user_data[user_index][1] = new_password
 
- 
+    user_data[user_index][1] = new_password
 
     # Write the updated data structure back to the text file
     with open(user + ".txt", "w") as file:
@@ -274,9 +274,115 @@ def UpdateSub(user): #Reassign subject menu
 
     print("Subjects updated successfully.")
 
+# Start of Admin Function
+def AdminMenu(username, password):  # Modify the AdminMenu function to receive username and password
+    while True:
+        print('Admin Menu')
+        print("1. Edit Receptionist")
+        print("2. Edit Tutor")
+        print("3. Income Report")
+        print("4. Change Password")
+        print('5. Logout')
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            EditMenu('Receptionist')  # Pass the username and password to the EditMenu function
+        elif choice == '2':
+            EditMenu('Tutor')  # Pass the username and password to the EditMenu function
+        elif choice == '3':
+            IncomeMenu()
+        elif choice == '4':
+            ChangePW('Admin' ,username, password)  # Pass the username to the ChangePW function
+        elif choice == '5':
+            return
+        else:
+            print('Invalid input, please enter number 1 to 5 only.')
+            print("")
+
+def IncomeMenu():
+    while True:
+        print()
+        print('Check Income')
+        print('1. Check Income based on Level')
+        print('2. Check Income based on Subject')
+        print('3. Check Profit This Month')
+        print('4. Return to Admin Menu')
+
+        choice = input('Enter your Choice (1-4): ')
+
+        if choice == '1':
+            level = int(input('Enter the level (1-5): '))
+            income = calc_income('level', level)
+            print(f"Income per month for Level {level}: RM{income}")
+        elif choice == '2':
+            subject = input('Enter the subject: ').capitalize()
+            income =  calc_income('subject', subject)
+            print(f"Income per month for Subject {subject}: RM{income}")
+        elif choice == '3':
+            calculate_profit()
+        elif choice == '4':
+            return
+        else:
+            print('Invalid choice. Please try again.')
+
+def calc_income(option, value):
+    # Read student data
+    student_data = []
+    with open('Student.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                student_info = line.split('\t')
+                student_data.append(student_info)
+
+    # Read subject pricing data
+    subject_pricing = {}
+    with open('Subject_Pricing.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                subject, price = line.split('\t')
+                subject_pricing[subject] = int(price)
+
+    # Calculate income per month based on the option
+    income = 0
+    if option == 'level':
+        for student_info in student_data:
+            if int(student_info[3]) == value:
+                for subject in student_info[4:7]:
+                    if subject in subject_pricing:
+                        income += subject_pricing[subject]
+    elif option == 'subject':
+        for student_info in student_data:
+            if value in student_info[4:7]:
+                if value in subject_pricing:
+                    income += subject_pricing[value]
+
+    return income
+
+def calculate_profit():
+    tutor_salary = 0
+    with open('Tutor.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                tutor_info = line.split('\t')
+                if len(tutor_info) > 1:
+                    salary = tutor_info[-1]
+                    if salary.isdigit():
+                        tutor_salary += int(salary)
+
+    total_income = calc_income('level', 1) + calc_income('level', 2) + calc_income('level', 3) + calc_income('level', 4) + calc_income('level', 5)
+    total_expenses = float(input('Other expenses such as Rent: '))
+
+    profit = total_income - tutor_salary - total_expenses
+    print('\n' + "Total Income: RM{:.2f}".format(total_income))
+    print("Total Expenses: RM{:.2f}".format(total_expenses))
+    print("Total Salary: RM{:.2f}".format(tutor_salary))
+    print("Profit: RM{:.2f}".format(profit))
+# End of Admin Function
 
 # Start of Receptionist Function
-def ReceptionistMenu(): #Reception Menu 
+def ReceptionistMenu(username, password): #Reception Menu 
     while True:
         print('Receptionist Menu')
         print("1. Register / Delete Student ")
@@ -288,22 +394,23 @@ def ReceptionistMenu(): #Reception Menu
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
-            EditMenu('Receptionist')  
+            EditMenu('Student')  
         elif choice == '2':
             UpdateSub('Student')
         elif choice == '3':
-            Payment(is_receptionist=True)
+            username = input('Enter Student Name: ')
+            Payment('Receptionist', username)
         elif choice == '4':  #Done
             ticket_menu('Receptionist')
         elif choice == '5':
-            ChangePW('Receptionist')
+            ChangePW('Receptionist' , username, password)
         elif choice == '6':
             return
         else:
             print('Invalid input,please enter number 1 to 6 only.')
             print("")
 
-def Payment(is_receptionist=False): #uses 
+def Payment(user, username): #can be used by student as well call with Payment()
     # Read student data
     student_data = []
     with open('Student.txt', 'r') as file:
@@ -314,7 +421,7 @@ def Payment(is_receptionist=False): #uses
                 student_data.append(student_info)
 
     # Declare and initialize user_name variable and ask for input
-    user_name = input("Enter username: ")
+    user_name = username
 
     # Find student by name
     user_index = None
@@ -356,17 +463,17 @@ def Payment(is_receptionist=False): #uses
                         payable_amount = None
             break
     if payable_amount is None:
-        print("Total Price for {}: RM{:.2f}".format(user_name, total_price))
+        print("\n Total Price for {}: RM{:.2f} \n".format(user_name, total_price))
     elif payable_amount == 0:
-        print("Payable Amount for {}: RM{:.2f}".format(user_name, payable_amount))
+        print("\n Payable Amount for {}: RM{:.2f} \n".format(user_name, payable_amount))
     elif payable_amount > 0:
-        print("Payable Amount for {}: RM{:.2f}".format(user_name, payable_amount))
+        print("\n Payable Amount for {}: RM{:.2f} \n".format(user_name, payable_amount))
     elif payable_amount < 0:
-        print("Overpaid for {}: RM{:.2f}".format(user_name, payable_amount))
+        print("\n Overpaid for {}: RM{:.2f} \n ".format(user_name, payable_amount))
 
 
 
-    if is_receptionist:
+    if user == 'Receptionist':
         # Allow receptionist to proceed with payment
         print('Do you want to proceed with the payment?')
         choice = input('Yes or No (Enter Y/N): ').capitalize()
@@ -407,7 +514,6 @@ def Payment(is_receptionist=False): #uses
         # Student can only view the total price, no payment actions allowed
         print('Payment option not available for students.')
 
-
 def generate_ticket_number(file_name):
     try:
         with open(file_name, 'r') as file:
@@ -424,9 +530,9 @@ def generate_ticket_number(file_name):
     except FileNotFoundError:
         return '001'  # If the file doesn't exist, start with ticket number 001
 
-def create_new_ticket(file_name):
+def create_new_ticket(file_name , username):
     ticket_number = generate_ticket_number(file_name)
-    name = input('Enter your name: ')
+    name = username
     message = input('Enter your message: ')
     status = 'Pending'
     
@@ -438,9 +544,9 @@ def create_new_ticket(file_name):
     print('Please remember your ticket number.')
     print('New ticket created successfully!')
 
-def remove_ticket(file_name):
+def remove_ticket(file_name, username):
     ticket_number = input('Enter the ticket number to remove: ')
-    name = input('Enter Your Name: ')
+    name = username
     confirmation = input('Are you Sure ? (Y/N)').capitalize()
 
     with open(file_name, 'r') as file:
@@ -457,11 +563,11 @@ def remove_ticket(file_name):
                     file.write(line)
 
         if ticket_found:
-            print('Ticket removed successfully!')
+            print('Ticket removed successfully! \n')
         else:
-            print('Ticket not found or name does not match.')
+            print('Ticket not found. \n')
     else:
-        print('Process Cancelled')
+        print('Process Cancelled \n')
      
 def change_ticket_status(file_name):
     with open(file_name, 'r') as file:
@@ -496,22 +602,30 @@ def change_ticket_status(file_name):
     
     print('Ticket status updated successfully.')
 
-def check_status(user):
+def check_status(user,username):
     with open('ticket.txt', 'r') as file:
         lines = file.readlines()
 
     if user == 'Student':
-        student_name = input('Enter Your Name: ')
+        student_name = username
         for line in lines:
             if student_name in line:
-                print(line.strip())  # Print the line if the student's name is found
+                print('\n'+ line.strip())  # Print the line if the student's name is found
+        
+        if student_name not in line:
+            print('\n You do not have a Ticket \n')
     
     elif user == 'Receptionist':
+        pending_ticket_found = False
         for line in lines:
             if 'Pending' in line:
-                print(line.strip())  # Print the line if 'Pending' is found
+                print('\n' + line.strip() + '\n')  # Print the line if 'Pending' is found
+                pending_ticket_found = True
 
-def ticket_menu(user):
+        if not pending_ticket_found:
+            print('No Ticket in Pending \n') 
+
+def ticket_menu(user, username):
     ticket_file = 'tickets.txt'
     
     while True: 
@@ -522,11 +636,11 @@ def ticket_menu(user):
             print('4. Return to Student Menu')
             choice = input('Enter Your Choice 1-4: ')
             if choice == '1':
-                create_new_ticket('Ticket.txt')
+                create_new_ticket('Ticket.txt', username)
             elif choice == '2':
-                remove_ticket('Ticket.txt')
+                remove_ticket('Ticket.txt', username)
             elif choice == '3':
-                check_status('Student')
+                check_status('Student', username)
             elif choice == '4':
                 return
             else: 
@@ -544,132 +658,277 @@ def ticket_menu(user):
                 return
             else:
                 print('Invalid choice. Please try again.')
-
 # End of Receptionist function
 
 
-# Start of Admin Function
-#function 1,2,4 are global function
-def AdminMenu(): #Admin Menu All function for admin   
-    while True:
-        print('Admin Menu')
-        print("1. Edit Receptionist")
-        print("2. Edit Tutor")
-        print("3. Income Report")
-        print("4. Change Password")
-        print('5. Logout')
-        choice = input("Enter your choice: ")
-        if choice == '1':
-            EditMenu('Receptionist')
-        elif choice == '2':
-            EditMenu('Tutor')
-        elif choice == '3':
-            IncomeMenu()
-        elif choice == '4':
-            ChangePW('Admin')
-        elif choice == '5':
-            return
-        else:
-            print('Invalid input,please enter number 1 to 5 only.')
-            print("")
+# Start of Tutor Function
 
+def ViewEnrolledStudent(username): #Done
+    # Read tutor data
+    tutor_data = []
+    with open('tutor.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                tutor_info = line.split('\t')
+                tutor_data.append(tutor_info)
 
-def IncomeMenu():
-    while True:
-        print()
-        print('Check Income')
-        print('1. Check Income based on Level')
-        print('2. Check Income based on Subject')
-        print('3. Check Profit This Month')
-        print('4. Return to Admin Menu')
+    # Find the tutor's subjects
+    tutor_subjects = []
+    for tutor_info in tutor_data:
+        if tutor_info[0] == username:
+            tutor_subjects = tutor_info[4:7]
+            break
 
-        choice = input('Enter your Choice (1-4): ')
-
-        if choice == '1':
-            level = int(input('Enter the level (1-5): '))
-            income = calc_income('level', level)
-            print(f"Income per month for Level {level}: RM{income}")
-        elif choice == '2':
-            subject = input('Enter the subject: ').capitalize
-            income =  calc_income('subject', subject)
-            print(f"Income per month for Subject {subject}: RM{income}")
-        elif choice == '3':
-            profit()
-            print('Feature developing.')
-        elif choice == '4':
-            return
-        else:
-            print('Invalid choice. Please try again.')
-
-
-def calc_income(option, value):
     # Read student data
     student_data = []
-    with open('Student.txt', 'r') as file:
+    with open('student.txt', 'r') as file:
         for line in file:
             line = line.strip()
             if line:
                 student_info = line.split('\t')
                 student_data.append(student_info)
 
-    # Read subject pricing data
-    subject_pricing = {}
+    # Find students with the same subjects as the tutor
+    students_with_same_subjects = []
+    for student_info in student_data:
+        for subject in student_info[4:]:
+            if subject in tutor_subjects:
+                students_with_same_subjects.append(student_info)
+                break
+    # Sort students by their level
+    students_with_same_subjects = sorted(students_with_same_subjects, key=lambda student: int(student[3]))
+
+    # Print the students' information
+    print(f"Students under {username}'s class in the following subjects:")
+    for student in students_with_same_subjects:
+        print(f"StudentID: {student[0]}, Student Name: {student[2]}, Level: {student[3]}")
+
+
+    print('\n')  # Add a new line for better readability
+
+def add_new_class(username):
+    subject = input("Enter the subject: ")
+    tutor = username
+    day = input("Enter the day of the week (e.g., Monday): ")
+    start_time = input("Enter the start time (e.g., 4:00 PM): ")
+    end_time = input("Enter the end time (e.g., 5:30 PM): ")
+    level = input("Enter the level (e.g., Level 3): ")
+
+    # Format the data into the desired format
+    new_class_info = f"Subject:{subject}|Tutor:{username}|Day:{day}|StartTime:{start_time}|EndTime:{end_time}|Level:{level}\n"
+
+    # Append the new class information to the TXT file
+    with open('TESTSUB.txt', 'a') as file:
+        file.write(new_class_info)
+
+    print("New class added successfully!")
+
+def delete_class(username):
+    tutor_name_to_search = f"Tutor:{username}|"
+
+    with open('TESTSUB.txt', 'r') as file:
+        lines = file.readlines()
+
+    found_lines = []  # Store the lines that match the targeted username
+    for line in lines:
+        if tutor_name_to_search in line:
+            found_lines.append(line.strip())
+
+    # Print the found lines to the user with line numbers
+    for i, line in enumerate(found_lines, 1):
+        print(f"Line {i}: {line}")
+
+    if not found_lines:
+        print(f"No classes found under the tutor's name '{username}'.")
+        return
+
+    # Ask for the line number to delete
+    line_number_to_replace = int(input("Enter the line number to delete (or 0 to cancel): "))
+    if 0 < line_number_to_replace <= len(found_lines):
+        # Find the corresponding line number in the original lines list
+        count = 0
+        for i, line in enumerate(lines):
+            if tutor_name_to_search in line:
+                count += 1
+                if count == line_number_to_replace:
+                    original_line_number = i
+                    break
+
+        # Replace the selected line with an empty line
+        lines[original_line_number] = '\n'
+
+        # Write the updated data structure back to the text file
+        with open('TESTSUB.txt', 'w') as file:
+            file.writelines(lines)
+
+        print("Line deleted successfully!")
+    elif line_number_to_replace == 0:
+        print("No line was deleted.")
+    else:
+        print("Invalid line number. Please enter a valid line number.")
+
+def edit_class(username):
+    tutor_name_to_search = f"Tutor:{username}|"
+
+    with open('TESTSUB.txt', 'r') as file:
+        lines = file.readlines()
+
+    found_lines = []  # Store the lines that match the targeted username
+    for line in lines:
+        if tutor_name_to_search in line:
+            found_lines.append(line.strip())
+
+    # Print the found lines to the user with line numbers
+    for i, line in enumerate(found_lines, 1):
+        print(f"Line {i}: {line}")
+
+    if not found_lines:
+        print(f"No classes found under the tutor's name '{username}'.")
+        return
+
+    # Ask for the line number to edit
+    line_number_to_edit = int(input("Enter the line number to edit (or 0 to cancel): "))
+    if 0 < line_number_to_edit <= len(found_lines):
+        # Find the corresponding line number in the original lines list
+        count = 0
+        for i, line in enumerate(lines):
+            if tutor_name_to_search in line:
+                count += 1
+                if count == line_number_to_edit:
+                    original_line_number = i
+                    break
+
+        # Get the current class information from the selected line
+        current_class_info = lines[original_line_number].strip().split('|')
+        current_day = current_class_info[2].replace('Day:', '').strip()
+        current_start_time = current_class_info[3].replace('StartTime:', '').strip()
+        current_end_time = current_class_info[4].replace('EndTime:', '').strip()
+
+        # Ask for new day and time inputs
+        new_day = input(f"Current Day: {current_day}\nEnter the new day of the week (e.g., Monday): ")
+        new_start_time = input(f"Current Start Time: {current_start_time}\nEnter the new start time (e.g., 4:00 PM): ")
+        new_end_time = input(f"Current End Time: {current_end_time}\nEnter the new end time (e.g., 5:30 PM): ")
+
+        # Modify the class information with the new day and time
+        new_class_info = f"{current_class_info[0]}|Tutor:{username}|Day:{new_day}|StartTime:{new_start_time}|EndTime:{new_end_time}|{current_class_info[5]}"
+
+        # Replace the selected line with the edited class information
+        lines[original_line_number] = new_class_info + '\n'
+
+        # Write the updated data structure back to the text file
+        with open('TESTSUB.txt', 'w') as file:
+            file.writelines(lines)
+
+        print("Class edited successfully!")
+    elif line_number_to_edit == 0:
+        print("No class was edited.")
+    else:
+        print("Invalid line number. Please enter a valid line number.")
+
+def edit_charges(tutor_name):
+    # Step 1: Find the subjects the tutor is in charge of in TESTSUB.txt
+    tutor_subjects = set()  # Using a set to avoid duplicates
+    with open('TESTSUB.txt', 'r') as file:
+        for line in file:
+            if f"Tutor:{tutor_name}|" in line:
+                subject_info = line.split('|')[0].replace('Subject:', '').strip()
+                tutor_subjects.add(subject_info)
+
+    if not tutor_subjects:
+        print(f"No subjects found for the tutor '{tutor_name}' in TESTSUB.txt.")
+        return
+
+    # Step 2: Display current prices for subjects from Subject_Pricing.txt
+    current_prices = {}
     with open('Subject_Pricing.txt', 'r') as file:
         for line in file:
-            line = line.strip()
-            if line:
-                subject, price = line.split('\t')
-                subject_pricing[subject] = int(price)
+            subject, price = line.strip().split('\t')
+            current_prices[subject] = int(price)
 
-    # Calculate income per month based on the option
-    income = 0
-    if option == 'level':
-        for student_info in student_data:
-            if int(student_info[3]) == value:
-                for subject in student_info[4:]:
-                    income += subject_pricing.get(subject, 0)
-    elif option == 'subject':
-        for student_info in student_data:
-            if value in student_info[4:]:
-                income += student_info.count(value) * subject_pricing.get(value, 0)
+    # Display current prices to the tutor
+    print("Current Prices:")
+    for subject in tutor_subjects:
+        price = current_prices.get(subject, 'Not found')
+        print(f"{subject}: {price}")
 
-    return income
+    # Step 3: Ask the tutor to choose a subject to edit the pricing
+    subject_to_edit = input("Enter the subject to edit the pricing (or 'cancel' to exit): ").capitalize()
+    if subject_to_edit== 'Cancel':
+        print("Edit charges cancelled.")
+        return
+    
 
-def profit():
-    print('\n This will count the profit made this month')
-    expenses = int(input('Enter your expenses (rent and bill): '))
-    Total = 'Income from student'
-    Salary = 'Salary of tutors'
-    Profit = Total - Salary - expenses
-    print(Profit)
+    # Check if the chosen subject is in the tutor's subjects
+    if subject_to_edit not in tutor_subjects:
+        print(f"The tutor '{tutor_name}' is not in charge of the subject '{subject_to_edit}'.")
+        return
 
-# Check for profit as well. 
+    # Step 4: Take the new pricing input and update Subject_Pricing.txt
+    new_price = input(f"Enter the new price for {subject_to_edit}: ")
+    try:
+        new_price = int(new_price)
+        if new_price < 0:
+            print("Invalid price. Please enter a positive integer.")
+            return
+    except ValueError:
+        print("Invalid input. Please enter a valid price.")
+        return
+
+    # Update the pricing in Subject_Pricing.txt
+    with open('Subject_Pricing.txt', 'r') as file:
+        lines = file.readlines()
+
+    with open('Subject_Pricing.txt', 'w') as file:
+        for line in lines:
+            subject, price = line.strip().split('\t')
+            if subject == subject_to_edit:
+                file.write(f"{subject}\t{new_price}\n")
+            else:
+                file.write(line)
+
+    print("Pricing updated successfully!")
+
+def ClassMenu(username):
+    while True:
+        print('\n' 'Class Menu')
+        print('1. Add New Class')
+        print('2. Delete Class')
+        print('3. Edit Class')
+        print('4. Edit Charges')
+        print('5. Go Back')
+        choice = input('Enter Your Choice: ')
+        if choice == '1':
+            add_new_class(username)
+        elif choice == '2':
+            delete_class(username)
+        elif choice == '3':
+            edit_class(username)
+        elif choice == '4':
+            edit_charges(username)
+        elif choice == '5':
+            return
+        else: 
+            print('Invalid input,please enter number 1 to 4 only.')
+            print('')
 
 
-
-
-
-# End of Admin Function
-
-
-# Start of Tutor Function
-def TutorMenu():
+def TutorMenu(username, password):
     while True:
         print('\n')
         print('Tutor Menu')
-        print("1. Add Class Information ")
+        print("1. Class Menu ")
         print("2. View Students enrolled in my Class")
         print("3. Change Password")
         print('4. Logout ')
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
-            ClassMenu('Tutor')  
+            ClassMenu(username)  
         elif choice == '2':
-            tutor_name = input("Enter tutor name: ")
-            ViewEnrolledStud(tutor_name)
+            ViewEnrolledStudent(username)
         elif choice == '3':  #Done
-            ChangePW('Tutor')
+            ChangePW('Tutor', username, password)
         elif choice == '4':
             print('Logout Successful')
             return
@@ -677,41 +936,75 @@ def TutorMenu():
             print('Invalid input,please enter number 1 to 3 only.')
             print("")
 
-
-
-
-# Enf of Tutor Function
+# End of Tutor Function
 
 
 # Start of Student Function
-def StudentMenu():
+def timetable(student_username):
+    # Step 1: Find the subjects and levels of the student from Student.txt
+    student_subjects = []
+    student_level = []
+    with open('Student.txt', 'r') as file:
+        for line in file:
+            data = line.strip().split('\t')
+            if data[0] == student_username:
+                # Get the subjects starting from the 5th element (index 4) up to the second-to-last element
+                student_subjects = [subject for subject in data[4:-1] if subject]
+                student_level = 'Level ' + data[3]
+                print('\n')
+                break
+
+    if not student_subjects:
+        print(f"No subjects found for the student '{student_username}' in Student.txt.")
+        return
+
+    # Step 2: Display the timetable based on the student's subjects and level from TESTSUB.txt
+    print("Timetable for Student:", student_username)
+    with open('TESTSUB.txt', 'r') as file:
+        for line in file:
+            line = line.strip()
+            if not line:
+                continue  # Skip empty lines
+            subject_info = line.split('|')
+            try:
+                if len(subject_info) >= 6:
+                    subject = subject_info[0].replace('Subject:', '').strip()
+                    tutor = subject_info[1].replace('Tutor:', '').strip()
+                    day = subject_info[2].replace('Day:', '').strip()
+                    start_time = subject_info[3].replace('StartTime:', '').strip()
+                    end_time = subject_info[4].replace('EndTime:', '').strip()
+                    level = subject_info[-1].replace('Level:', '').strip()
+
+                    # Check if both the subject and level match the student's subjects and level
+                    if subject in student_subjects and level == student_level:
+                        print(f"Subject: {subject}, Tutor: {tutor}, Day: {day}, "
+                            f"Start Time: {start_time}, End Time: {end_time}, Level: {level}" '\n')
+                else:
+                    print("Invalid line in TESTSUB.txt:", line)
+            except IndexError:
+                print("Error processing line in TESTSUB.txt:", line)
+
+def StudentMenu(username, password):
     while True:
         print('Student Menu')
-        print('1. Check Timetable')
-        print('2. Send / Delete Request')
-        print('3. Fee')
-        print('4. Change Password ')
-        print('5. Logout')
-        choice = input('Enter Your Choice: ')
+        print('1. Check My Timetable ')
+        print('2. Ticket')
+        print('3. Check Balance')
+        print('4. Change Password')
+        print('5. Log Out')
+        choice = input('Enter Your Choice (1-5): ')
         if choice == '1':
-            ClassMenu()
+            timetable(username)
         elif choice == '2':
-            TicketMenu()
+            ticket_menu('Student' , username)
         elif choice == '3':
-            Payment()
+            Payment('Student' , username)
         elif choice == '4':
-            ChangePW('Student')
+            ChangePW('Student', username, password)
         elif choice == '5':
-            print('Logout Successful')
             return
-
         else:
-            print('Invalid input,please enter number 1 to 5 only.')
-
-
-
-
-
+            print('Invalid input,please enter number 1 to 5 only.' '\n')
 # End of Student Function
 
 
@@ -741,7 +1034,15 @@ def mainmenu(): # start screen
     
 mainmenu()
 
-#Income (admin) number of subject find price* student in the class1
-#Payment for recep and student need double confirm
-#Search for class func for both tutor and student double check
-#back button for every page
+
+
+
+
+#Income (admin) number of subject find price* student in the class1 #done
+#Payment for recep and student need double confirm (DONE)
+#Search for class func for both tutor and student double check #done
+#back button for every page (Need double check)
+
+#register no duplicate username!!!
+#ticket system just add username into it and check his own ticket straightaway #fixed
+#STUDENT CAN PAY #fixed

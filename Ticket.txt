@@ -3,4 +3,4 @@
 004		user4	Refund			---			Rejected
 005	james	I want refund	Approved
 006	timothy	Replacement class	Approved
-007	jason	Prove of payment	Pending
+007	jason	Prove of payment	Rejected
