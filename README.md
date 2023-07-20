@@ -1,5 +1,6 @@
 # PWP-Ass
-Current Status: 80% Done
+Current Status: 100% Done
+Now try your hardest to break it
 
 Plans:
 Standardize all initial password for student because they are allowed to change later.
