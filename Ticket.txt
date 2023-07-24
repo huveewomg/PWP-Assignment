@@ -1,6 +1,5 @@
-
-003		user23	Quit			x Reason		Approved
-004		user4	Refund			---			Rejected
-005	james	I want refund	Approved
+005	james	I want refund	Approved 
 006	timothy	Replacement class	Approved
 007	jason	Prove of payment	Rejected
+008	jason	Rejected	You gay
+009	Student11	Ur mom gay	Rejected  Reason: Nah fam

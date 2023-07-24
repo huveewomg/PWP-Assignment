@@ -401,7 +401,7 @@ def ReceptionistMenu(username, password): #Reception Menu
             username = input('Enter Student Name: ')
             Payment('Receptionist', username)
         elif choice == '4':  #Done
-            ticket_menu('Receptionist')
+            ticket_menu('Receptionist', 'Receptionist')
         elif choice == '5':
             ChangePW('Receptionist' , username, password)
         elif choice == '6':
@@ -581,6 +581,16 @@ def change_ticket_status(file_name):
     print('If Approve, enter Y. If Reject, enter N.')
     new_status = input('Enter the new status: ').capitalize()
 
+    if new_status == 'N':
+        reason = input("Enter your reason: ")
+        print(reason)
+    
+    else:
+        reason = ""
+
+    
+        
+
     while new_status not in ['Y', 'N']:
         print('Invalid input. Please enter Y to Approve or N to Reject.')
         new_status = input('Enter the new status: ').capitalize()
@@ -588,8 +598,8 @@ def change_ticket_status(file_name):
     if new_status == 'Y':
         new_status = 'Approved'
     else:
-        new_status = 'Rejected'
-
+        new_status = "Rejected	Reason: " + reason
+    
     with open(file_name, 'w') as file:
         for line in lines:
             ticket_info = line.split('\t')
@@ -651,7 +661,7 @@ def ticket_menu(user, username):
             print('3. Return to Receptionist Menu')
             choice = input('Enter your choice (1-3): ')
             if choice == '1':
-                check_status('Receptionist')
+                check_status('Receptionist', 'Receptionist')
             elif choice == '2':
                 change_ticket_status('Ticket.txt')
             elif choice == '3':
