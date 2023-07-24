@@ -572,45 +572,42 @@ def remove_ticket(file_name, username):
 def change_ticket_status(file_name):
     with open(file_name, 'r') as file:
         lines = file.readlines()
+        ticket_list = ""
+        
 
     for line in lines:
+        ticket_list += line
         if 'Pending' in line:
             print(line.strip())  # Print the line if it has a 'Pending' status
 
     ticket_number = input('Which ticket number do you want to edit?: ')
-    print('If Approve, enter Y. If Reject, enter N.')
-    new_status = input('Enter the new status: ').capitalize()
-
-    if new_status == 'N':
-        reason = input("Enter your reason: ")
-        print(reason)
-    
-    else:
-        reason = ""
-
-    
-        
-
-    while new_status not in ['Y', 'N']:
-        print('Invalid input. Please enter Y to Approve or N to Reject.')
+    if ticket_number in ticket_list:
+        print('If Approve, enter Y. If Reject, enter N.')
         new_status = input('Enter the new status: ').capitalize()
+        while new_status not in ['Y', 'N']:
+            print('Invalid input. Please enter Y to Approve or N to Reject.')
+            new_status = input('Enter the new status: ').capitalize()
 
-    if new_status == 'Y':
-        new_status = 'Approved'
+        if new_status == 'N':
+            reason = input("Enter your reason: ")
+            new_status = "Rejected	Reason: " + reason
+        else:
+            reason = ""
+            new_status = 'Approved'
+            
+        with open(file_name, 'w') as file:
+            for line in lines:
+                ticket_info = line.split('\t')
+                if ticket_info[0] == ticket_number:
+                    ticket_info[3] = new_status
+                    updated_line = '\t'.join(ticket_info)
+                    file.write(updated_line + '\n')
+                else:
+                    file.write(line)
+            
+        print('Ticket status updated successfully.')
     else:
-        new_status = "Rejected	Reason: " + reason
-    
-    with open(file_name, 'w') as file:
-        for line in lines:
-            ticket_info = line.split('\t')
-            if ticket_info[0] == ticket_number:
-                ticket_info[-1] = new_status
-                updated_line = '\t'.join(ticket_info)
-                file.write(updated_line + '\n')
-            else:
-                file.write(line)
-    
-    print('Ticket status updated successfully.')
+        print ("That ticket does not exist.\n")
 
 def check_status(user,username):
     with open('ticket.txt', 'r') as file:
@@ -636,7 +633,6 @@ def check_status(user,username):
             print('No Ticket in Pending \n') 
 
 def ticket_menu(user, username):
-    ticket_file = 'tickets.txt'
     
     while True: 
         if user == 'Student':
