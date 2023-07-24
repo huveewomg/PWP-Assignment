@@ -565,7 +565,7 @@ def remove_ticket(file_name, username):
         if ticket_found:
             print('Ticket removed successfully! \n')
         else:
-            print('Ticket not found or does not belong to you. \n')
+            print('Ticket not found\n')
     else:
         print('Process Cancelled \n')
      
