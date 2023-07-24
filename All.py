@@ -581,6 +581,11 @@ def change_ticket_status(file_name):
             print(line.strip())  # Print the line if it has a 'Pending' status
 
     ticket_number = input('Which ticket number do you want to edit?: ')
+    while len(ticket_number) != 3:
+        print("Enter a valid ticket number consisting of 3 digits")
+        ticket_number = input('Which ticket number do you want to edit?: ')
+        
+
     if ticket_number in ticket_list:
         print('If Approve, enter Y. If Reject, enter N.')
         new_status = input('Enter the new status: ').capitalize()

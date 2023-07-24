@@ -2,6 +2,6 @@
 006	timothy	Replacement class	Approved
 007	jason	Prove of payment	Rejected	Reason:Suka Hati Aku la
 008	Student11	Ur mom gay	Approved
-009	Student11	hi	Pending
-010	Student11	hi	Pending
+009	Student11	hi	Approved
+010	Student11	hi	Rejected	Reason:Gay
 011	Student11	lmao	Pending
