@@ -1,4 +1,7 @@
-005	james	I want refund	Approved 
+005 james	I want refund	Rejected	Reason:Terlalu Hijau
 006	timothy	Replacement class	Approved
-007	jason	Prove of payment	Rejected
-009	Student11	Ur mom gay	Rejected	Reason: Your mum gay
+007	jason	Prove of payment	Rejected	Reason:Suka Hati Aku la
+008	Student11	Ur mom gay	Approved
+009	Student11	hi	Pending
+010	Student11	hi	Pending
+011	Student11	lmao	Pending

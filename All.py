@@ -390,7 +390,7 @@ def ReceptionistMenu(username, password): #Reception Menu
         print("3. Payment")
         print('4. Support Ticket')
         print("5. Change Password")
-        print('6. Logout')
+        print('6. Logout\n')
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
@@ -565,7 +565,7 @@ def remove_ticket(file_name, username):
         if ticket_found:
             print('Ticket removed successfully! \n')
         else:
-            print('Ticket not found. \n')
+            print('Ticket not found or does not belong to you. \n')
     else:
         print('Process Cancelled \n')
      
@@ -590,7 +590,7 @@ def change_ticket_status(file_name):
 
         if new_status == 'N':
             reason = input("Enter your reason: ")
-            new_status = "Rejected	Reason: " + reason
+            new_status = "Rejected	Reason:" + reason
         else:
             reason = ""
             new_status = 'Approved'
@@ -599,13 +599,18 @@ def change_ticket_status(file_name):
             for line in lines:
                 ticket_info = line.split('\t')
                 if ticket_info[0] == ticket_number:
-                    ticket_info[3] = new_status
+                    if len(ticket_info) == 5:
+                        ticket_info.remove(ticket_info[-1])
+                        ticket_info.remove(ticket_info[-1])
+                    else:
+                        ticket_info.remove(ticket_info[-1])
+                    ticket_info.append(new_status)
                     updated_line = '\t'.join(ticket_info)
                     file.write(updated_line + '\n')
                 else:
                     file.write(line)
             
-        print('Ticket status updated successfully.')
+        print('Ticket status updated successfully.\n')
     else:
         print ("That ticket does not exist.\n")
 
