@@ -77,14 +77,11 @@ def register(user):  # Register function for everyone
         else:
             while True:
                 form = int(input('Enter Form 1/2/3/4/5 (ONLY 1-5): '))
-                if form > 5 or form < 1:
-                    print('Please Enter number (1-5)')
-                else:
-                    form = str(form)
+                if form <= 5:
                     data.append(form)
                     break  # This should be aligned with the inner while loop
-            break
-                    
+                else:
+                    print('Please Enter number (1-5)')
 
 
     while True:
@@ -277,7 +274,6 @@ def UpdateSub(user): #Reassign subject menu
 
     print("Subjects updated successfully.")
 
-
 # Start of Admin Function
 def AdminMenu(username, password):  # Modify the AdminMenu function to receive username and password
     while True:
@@ -394,7 +390,7 @@ def ReceptionistMenu(username, password): #Reception Menu
         print("3. Payment")
         print('4. Support Ticket')
         print("5. Change Password")
-        print('6. Logout\n')
+        print('6. Logout')
 
         choice = input("Enter your choice: ")
         if choice == '1': #Done
@@ -569,58 +565,42 @@ def remove_ticket(file_name, username):
         if ticket_found:
             print('Ticket removed successfully! \n')
         else:
-            print('Ticket not found\n')
+            print('Ticket not found. \n')
     else:
         print('Process Cancelled \n')
      
 def change_ticket_status(file_name):
     with open(file_name, 'r') as file:
         lines = file.readlines()
-        ticket_list = ""
-        
 
     for line in lines:
-        ticket_list += line
         if 'Pending' in line:
             print(line.strip())  # Print the line if it has a 'Pending' status
 
     ticket_number = input('Which ticket number do you want to edit?: ')
-    while len(ticket_number) != 3:
-        print("Enter a valid ticket number consisting of 3 digits")
-        ticket_number = input('Which ticket number do you want to edit?: ')
-        
+    print('If Approve, enter Y. If Reject, enter N.')
+    new_status = input('Enter the new status: ').capitalize()
 
-    if ticket_number in ticket_list:
-        print('If Approve, enter Y. If Reject, enter N.')
+    while new_status not in ['Y', 'N']:
+        print('Invalid input. Please enter Y to Approve or N to Reject.')
         new_status = input('Enter the new status: ').capitalize()
-        while new_status not in ['Y', 'N']:
-            print('Invalid input. Please enter Y to Approve or N to Reject.')
-            new_status = input('Enter the new status: ').capitalize()
 
-        if new_status == 'N':
-            reason = input("Enter your reason: ")
-            new_status = "Rejected	Reason:" + reason
-        else:
-            new_status = 'Approved'
-            
-        with open(file_name, 'w') as file:
-            for line in lines:
-                ticket_info = line.split('\t')
-                if ticket_info[0] == ticket_number:
-                    if len(ticket_info) == 5:
-                        ticket_info.remove(ticket_info[-1])
-                        ticket_info.remove(ticket_info[-1])
-                    else:
-                        ticket_info.remove(ticket_info[-1])
-                    ticket_info.append(new_status)
-                    updated_line = '\t'.join(ticket_info)
-                    file.write(updated_line + '\n')
-                else:
-                    file.write(line)
-            
-        print('Ticket status updated successfully.\n')
+    if new_status == 'Y':
+        new_status = 'Approved'
     else:
-        print ("That ticket does not exist.\n")
+        new_status = 'Rejected'
+
+    with open(file_name, 'w') as file:
+        for line in lines:
+            ticket_info = line.split('\t')
+            if ticket_info[0] == ticket_number:
+                ticket_info[-1] = new_status
+                updated_line = '\t'.join(ticket_info)
+                file.write(updated_line + '\n')
+            else:
+                file.write(line)
+    
+    print('Ticket status updated successfully.')
 
 def check_status(user,username):
     with open('ticket.txt', 'r') as file:
@@ -646,6 +626,8 @@ def check_status(user,username):
             print('No Ticket in Pending \n') 
 
 def ticket_menu(user, username):
+    ticket_file = 'tickets.txt'
+    
     while True: 
         if user == 'Student':
             print('1. Create new ticket')
@@ -737,7 +719,7 @@ def add_new_class(username):
     new_class_info = f"Subject:{subject}|Tutor:{username}|Day:{day}|StartTime:{start_time}|EndTime:{end_time}|Level:{level}\n"
 
     # Append the new class information to the TXT file
-    with open('Timetable.txt', 'a') as file:
+    with open('TESTSUB.txt', 'a') as file:
         file.write(new_class_info)
 
     print("New class added successfully!")
@@ -745,7 +727,7 @@ def add_new_class(username):
 def delete_class(username):
     tutor_name_to_search = f"Tutor:{username}|"
 
-    with open('Timetable.txt', 'r') as file:
+    with open('TESTSUB.txt', 'r') as file:
         lines = file.readlines()
 
     found_lines = []  # Store the lines that match the targeted username
@@ -777,7 +759,7 @@ def delete_class(username):
         lines[original_line_number] = '\n'
 
         # Write the updated data structure back to the text file
-        with open('Timetable.txt', 'w') as file:
+        with open('TESTSUB.txt', 'w') as file:
             file.writelines(lines)
 
         print("Line deleted successfully!")
@@ -789,7 +771,7 @@ def delete_class(username):
 def edit_class(username):
     tutor_name_to_search = f"Tutor:{username}|"
 
-    with open('Timetable.txt', 'r') as file:
+    with open('TESTSUB.txt', 'r') as file:
         lines = file.readlines()
 
     found_lines = []  # Store the lines that match the targeted username
@@ -835,7 +817,7 @@ def edit_class(username):
         lines[original_line_number] = new_class_info + '\n'
 
         # Write the updated data structure back to the text file
-        with open('Timetable.txt', 'w') as file:
+        with open('TESTSUB.txt', 'w') as file:
             file.writelines(lines)
 
         print("Class edited successfully!")
@@ -845,16 +827,16 @@ def edit_class(username):
         print("Invalid line number. Please enter a valid line number.")
 
 def edit_charges(tutor_name):
-    # Step 1: Find the subjects the tutor is in charge of in Timetable.txt
+    # Step 1: Find the subjects the tutor is in charge of in TESTSUB.txt
     tutor_subjects = set()  # Using a set to avoid duplicates
-    with open('Timetable.txt', 'r') as file:
+    with open('TESTSUB.txt', 'r') as file:
         for line in file:
             if f"Tutor:{tutor_name}|" in line:
                 subject_info = line.split('|')[0].replace('Subject:', '').strip()
                 tutor_subjects.add(subject_info)
 
     if not tutor_subjects:
-        print(f"No subjects found for the tutor '{tutor_name}' in Timetable.txt.")
+        print(f"No subjects found for the tutor '{tutor_name}' in TESTSUB.txt.")
         return
 
     # Step 2: Display current prices for subjects from Subject_Pricing.txt
@@ -874,6 +856,12 @@ def edit_charges(tutor_name):
     subject_to_edit = input("Enter the subject to edit the pricing (or 'cancel' to exit): ").capitalize()
     if subject_to_edit== 'Cancel':
         print("Edit charges cancelled.")
+        return
+    
+
+    # Check if the chosen subject is in the tutor's subjects
+    if subject_to_edit not in tutor_subjects:
+        print(f"The tutor '{tutor_name}' is not in charge of the subject '{subject_to_edit}'.")
         return
 
     # Step 4: Take the new pricing input and update Subject_Pricing.txt
@@ -924,6 +912,7 @@ def ClassMenu(username):
             print('Invalid input,please enter number 1 to 4 only.')
             print('')
 
+
 def TutorMenu(username, password):
     while True:
         print('\n')
@@ -969,9 +958,9 @@ def timetable(student_username):
         print(f"No subjects found for the student '{student_username}' in Student.txt.")
         return
 
-    # Step 2: Display the timetable based on the student's subjects and level from Timetable.txt
+    # Step 2: Display the timetable based on the student's subjects and level from TESTSUB.txt
     print("Timetable for Student:", student_username)
-    with open('Timetable.txt', 'r') as file:
+    with open('TESTSUB.txt', 'r') as file:
         for line in file:
             line = line.strip()
             if not line:
@@ -991,9 +980,9 @@ def timetable(student_username):
                         print(f"Subject: {subject}, Tutor: {tutor}, Day: {day}, "
                             f"Start Time: {start_time}, End Time: {end_time}, Level: {level}" '\n')
                 else:
-                    print("Invalid line in Timetable.txt:", line)
+                    print("Invalid line in TESTSUB.txt:", line)
             except IndexError:
-                print("Error processing line in Timetable.txt:", line)
+                print("Error processing line in TESTSUB.txt:", line)
 
 def StudentMenu(username, password):
     while True:
@@ -1057,5 +1046,3 @@ mainmenu()
 #register no duplicate username!!!
 #ticket system just add username into it and check his own ticket straightaway #fixed
 #STUDENT CAN PAY #fixed
-#more readability lazy do
-#change price issue fixed
