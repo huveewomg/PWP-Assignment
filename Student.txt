@@ -1,4 +1,4 @@
-Student11	password11	Jim	5	Malay	Biology	English
+Student11	password11	Jim	5	Malay	Biology	English	90.0
 Student12	password12	Liu	4	Chemistry	English	History
 Student13	password13	James	4	Science	Physics	Malay
 Student14	password14	Liam	3	History	English	Science
@@ -41,4 +41,6 @@ Student50	password50	Han	2	History	Malay	English
 Student51	password51	Carter	1	Mathematics	Science	English
 Student52	password52	Sofia	2	English	History	Malay
 Student53	password53	Will	3	History	Science	Malay
-Student54	password54	Abigail	1	Malay	English	Science	90.0
+Student54	password54	Abigail	1	Malay	English	Science	90.0	
+Timothy	HolyBoi69420	Timothy Chin	5	Bible Knowledge	Bible Knowledge	Bible Knowledge	
+

@@ -4,3 +4,10 @@
 005	james	I want refund	Approved
 006	timothy	Replacement class	Approved
 007	jason	Prove of payment	Rejected
+008	jason	Prove of payment	Approved
+009	jason	P1	Approved
+010	jason	P2	Rejected	Reason:no
+011	Student41	test case	Approved
+012	Student2	test case2	Pending
+013	Student3	test case9	Pending
+014	Student41	test case	Rejected	Reason:No

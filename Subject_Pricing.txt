@@ -6,7 +6,7 @@ Science	70
 Additional Mathematics	80
 Physics	80
 Chemistry	80
-Biology	80  
+Biology	81
 Entrepreneurial Studies	60
 Business	60
 Account	70
