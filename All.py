@@ -13,14 +13,14 @@ def login(user): #login works for everyone call function with '???'
             login_info = line.strip().split('\t')  # Split after a tab distance
             if UserID == login_info[0] and Password == login_info[1]:
                 file.close()
-                print("Correct credentials!")
+                print('\n' + "Correct credentials!")
                 print("Welcome " + UserID + "!")
                 print("")
                 menu_function = user + "Menu"
                 globals()[menu_function](UserID , Password)  # Call the respective menu function based on the user role
                 return False
 
-        print("Incorrect credentials.")
+        print('\t'+ "Incorrect credentials.")
         attempts += 1
         remaining_attempts = max_attempts - attempts
         print(f"Attempts left: {remaining_attempts}")
@@ -281,12 +281,12 @@ def UpdateSub(user): #Reassign subject menu
 # Start of Admin Function
 def AdminMenu(username, password):  # Modify the AdminMenu function to receive username and password
     while True:
-        print('Admin Menu')
+        print('\n'+ 'Admin Menu')
         print("1. Edit Receptionist")
         print("2. Edit Tutor")
         print("3. Income Report")
         print("4. Change Password")
-        print('5. Logout')
+        print('5. Logout'+ '\t')
         choice = input("Enter your choice: ")
         if choice == '1':
             EditMenu('Receptionist')  # Pass the username and password to the EditMenu function
@@ -308,8 +308,9 @@ def IncomeMenu():
         print('Check Income')
         print('1. Check Income based on Level')
         print('2. Check Income based on Subject')
-        print('3. Check Profit This Month')
-        print('4. Return to Admin Menu')
+        print('3. Check Total Income both Level and Subject')
+        print('4. Check Profit This Month')
+        print('5. Return to Admin Menu')
 
         choice = input('Enter your Choice (1-4): ')
 
@@ -322,8 +323,11 @@ def IncomeMenu():
             income =  calc_income('subject', subject)
             print(f"Income per month for Subject {subject}: RM{income}")
         elif choice == '3':
-            calculate_profit()
+            income = calc_income('level', '6')
+            print(f"Income for both Level and Subject: RM{income}")
         elif choice == '4':
+            calculate_profit()
+        elif choice == '5':
             return
         else:
             print('Invalid choice. Please try again.')
@@ -349,7 +353,13 @@ def calc_income(option, value):
 
     # Calculate income per month based on the option
     income = 0
-    if option == 'level':
+    if option =='level' and value == '6':
+        for student_info in student_data:
+            for subject in student_info[4:7]:
+                    if subject in subject_pricing:
+                        income += subject_pricing[subject]
+
+    elif option == 'level':
         for student_info in student_data:
             if int(student_info[3]) == value:
                 for subject in student_info[4:7]:
@@ -376,19 +386,19 @@ def calculate_profit():
                         tutor_salary += int(salary)
 
     total_income = calc_income('level', 1) + calc_income('level', 2) + calc_income('level', 3) + calc_income('level', 4) + calc_income('level', 5)
-    total_expenses = float(input('Other expenses such as Rent: '))
+    total_expenses = float(input('Other expenses such as Rent and Electrical Bill: '))
 
     profit = total_income - tutor_salary - total_expenses
-    print('\n' + "Total Income: RM{:.2f}".format(total_income))
-    print("Total Expenses: RM{:.2f}".format(total_expenses))
-    print("Total Salary: RM{:.2f}".format(tutor_salary))
-    print("Profit: RM{:.2f}".format(profit))
+    print('\n' + "Total Income: RM{:.2f} ".format(total_income))
+    print('\n'+ "Total Expenses such as Rent and Electrical Bill: RM{:.2f}".format(total_expenses))
+    print('\n' + "Total Salary For Tutor: RM{:.2f}".format(tutor_salary))
+    print('\n'+ "Profit: RM{:.2f}".format(profit))
 # End of Admin Function
 
 # Start of Receptionist Function
 def ReceptionistMenu(username, password): #Reception Menu 
     while True:
-        print('Receptionist Menu')
+        print('\n' +'Receptionist Menu')
         print("1. Register / Delete Student ")
         print("2. Update Student's enrollment")
         print("3. Payment")
@@ -467,13 +477,13 @@ def Payment(user, username): #can be used by student as well call with Payment()
                         payable_amount = None
             break
     if payable_amount is None:
-        print("\n Total Price for {}: RM{:.2f} \n".format(user_name, total_price))
+        print("\n Total Amount for {}: RM{:.2f} \n".format(user_name, total_price))
     elif payable_amount == 0:
-        print("\n Payable Amount for {}: RM{:.2f} \n".format(user_name, payable_amount))
+        print("\n No Outstanding Amount for {} \n".format(user_name, payable_amount))
     elif payable_amount > 0:
-        print("\n Payable Amount for {}: RM{:.2f} \n".format(user_name, payable_amount))
+        print("\n Outstanding Amount for {}: RM{:.2f} \n".format(user_name, payable_amount))
     elif payable_amount < 0:
-        print("\n Overpaid for {}: RM{:.2f} \n ".format(user_name, payable_amount))
+        print("\n Overpaid by {}: RM{:.2f} \n ".format(user_name, payable_amount))
 
 
 
@@ -645,7 +655,7 @@ def check_status(user,username):
         if not pending_ticket_found:
             print('No Ticket in Pending \n') 
 
-def ticket_menu(user, username):
+def ticket_menu(user, username): 
     while True: 
         if user == 'Student':
             print('1. Create new ticket')
@@ -997,7 +1007,7 @@ def timetable(student_username):
 
 def StudentMenu(username, password):
     while True:
-        print('Student Menu')
+        print('\n' + 'Student Menu')
         print('1. Check My Timetable ')
         print('2. Ticket')
         print('3. Check Balance')
@@ -1021,7 +1031,7 @@ def StudentMenu(username, password):
 
 def mainmenu(): # start screen 
     while True:
-        print("**********  Welcome to Brilliant Tuition Centre ☺ **********")
+        print('\n'+ "**********  Welcome to Brilliant Tuition Centre ☺ **********")
         print("1.Admin")
         print("2.Receptionist")
         print("3.Tutor")
@@ -1057,5 +1067,5 @@ mainmenu()
 #register no duplicate username!!!
 #ticket system just add username into it and check his own ticket straightaway #fixed
 #STUDENT CAN PAY #fixed
-#more readability lazy do
+#more readability fixed
 #change price issue fixed
