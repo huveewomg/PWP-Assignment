@@ -1057,5 +1057,5 @@ mainmenu()
 #register no duplicate username!!!
 #ticket system just add username into it and check his own ticket straightaway #fixed
 #STUDENT CAN PAY #fixed
-#more readability 
-#change price issue
+#more readability lazy do
+#change price issue fixed
