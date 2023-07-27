@@ -645,7 +645,7 @@ def check_status(user,username):
         if not pending_ticket_found:
             print('No Ticket in Pending \n') 
 
-def ticket_menu(user, username): 
+def ticket_menu(user, username):
     while True: 
         if user == 'Student':
             print('1. Create new ticket')

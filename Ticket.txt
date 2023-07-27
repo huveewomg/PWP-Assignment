@@ -1,13 +1,7 @@
-
-003		user23	Quit			x Reason		Approved
-004		user4	Refund			---			Rejected
-005	james	I want refund	Approved
+005 james	I want refund	Rejected	Reason:Terlalu Hijau
 006	timothy	Replacement class	Approved
-007	jason	Prove of payment	Rejected
-008	jason	Prove of payment	Approved
-009	jason	P1	Approved
-010	jason	P2	Rejected	Reason:no
-011	Student41	test case	Approved
-012	Student2	test case2	Pending
-013	Student3	test case9	Pending
-014	Student41	test case	Rejected	Reason:No
+007	jason	Prove of payment	Rejected	Reason:Suka Hati Aku la
+008	Student11	Ur mom gay	Approved
+009	Student11	hi	Approved
+010	Student11	hi	Rejected	Reason:Gay
+011	Student11	lmao	Pending
