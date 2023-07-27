@@ -737,7 +737,7 @@ def add_new_class(username):
     new_class_info = f"Subject:{subject}|Tutor:{username}|Day:{day}|StartTime:{start_time}|EndTime:{end_time}|Level:{level}\n"
 
     # Append the new class information to the TXT file
-    with open('TESTSUB.txt', 'a') as file:
+    with open('Timetable.txt', 'a') as file:
         file.write(new_class_info)
 
     print("New class added successfully!")
@@ -745,7 +745,7 @@ def add_new_class(username):
 def delete_class(username):
     tutor_name_to_search = f"Tutor:{username}|"
 
-    with open('TESTSUB.txt', 'r') as file:
+    with open('Timetable.txt', 'r') as file:
         lines = file.readlines()
 
     found_lines = []  # Store the lines that match the targeted username
@@ -777,7 +777,7 @@ def delete_class(username):
         lines[original_line_number] = '\n'
 
         # Write the updated data structure back to the text file
-        with open('TESTSUB.txt', 'w') as file:
+        with open('Timetable.txt', 'w') as file:
             file.writelines(lines)
 
         print("Line deleted successfully!")
@@ -789,7 +789,7 @@ def delete_class(username):
 def edit_class(username):
     tutor_name_to_search = f"Tutor:{username}|"
 
-    with open('TESTSUB.txt', 'r') as file:
+    with open('Timetable.txt', 'r') as file:
         lines = file.readlines()
 
     found_lines = []  # Store the lines that match the targeted username
@@ -835,7 +835,7 @@ def edit_class(username):
         lines[original_line_number] = new_class_info + '\n'
 
         # Write the updated data structure back to the text file
-        with open('TESTSUB.txt', 'w') as file:
+        with open('Timetable.txt', 'w') as file:
             file.writelines(lines)
 
         print("Class edited successfully!")
@@ -845,16 +845,16 @@ def edit_class(username):
         print("Invalid line number. Please enter a valid line number.")
 
 def edit_charges(tutor_name):
-    # Step 1: Find the subjects the tutor is in charge of in TESTSUB.txt
+    # Step 1: Find the subjects the tutor is in charge of in Timetable.txt
     tutor_subjects = set()  # Using a set to avoid duplicates
-    with open('TESTSUB.txt', 'r') as file:
+    with open('Timetable.txt', 'r') as file:
         for line in file:
             if f"Tutor:{tutor_name}|" in line:
                 subject_info = line.split('|')[0].replace('Subject:', '').strip()
                 tutor_subjects.add(subject_info)
 
     if not tutor_subjects:
-        print(f"No subjects found for the tutor '{tutor_name}' in TESTSUB.txt.")
+        print(f"No subjects found for the tutor '{tutor_name}' in Timetable.txt.")
         return
 
     # Step 2: Display current prices for subjects from Subject_Pricing.txt
@@ -969,9 +969,9 @@ def timetable(student_username):
         print(f"No subjects found for the student '{student_username}' in Student.txt.")
         return
 
-    # Step 2: Display the timetable based on the student's subjects and level from TESTSUB.txt
+    # Step 2: Display the timetable based on the student's subjects and level from Timetable.txt
     print("Timetable for Student:", student_username)
-    with open('TESTSUB.txt', 'r') as file:
+    with open('Timetable.txt', 'r') as file:
         for line in file:
             line = line.strip()
             if not line:
@@ -991,9 +991,9 @@ def timetable(student_username):
                         print(f"Subject: {subject}, Tutor: {tutor}, Day: {day}, "
                             f"Start Time: {start_time}, End Time: {end_time}, Level: {level}" '\n')
                 else:
-                    print("Invalid line in TESTSUB.txt:", line)
+                    print("Invalid line in Timetable.txt:", line)
             except IndexError:
-                print("Error processing line in TESTSUB.txt:", line)
+                print("Error processing line in Timetable.txt:", line)
 
 def StudentMenu(username, password):
     while True:
