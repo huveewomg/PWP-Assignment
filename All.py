@@ -252,7 +252,7 @@ def UpdateSub(user): #Reassign subject menu
         return
 
     # Fetch the last three data under the username
-    subjects = user_data[user_index][4:]
+    subjects = user_data[user_index][4:7]
     print("Current subjects:", subjects)
 
     # Prompt for new subjects
@@ -268,7 +268,7 @@ def UpdateSub(user): #Reassign subject menu
             new_subjects.append(subject)
 
     # Replace the last three data with the new subjects
-    user_data[user_index][4:] = new_subjects
+    user_data[user_index][4:7] = new_subjects
 
     # Write the updated data back to the file
     with open(user + ".txt", "w") as file:
