@@ -970,7 +970,7 @@ def timetable(student_username):
             data = line.strip().split('\t')
             if data[0] == student_username:
                 # Get the subjects starting from the 5th element (index 4) up to the second-to-last element
-                student_subjects = [subject for subject in data[4:-1] if subject]
+                student_subjects = [subject for subject in data[4:7] if subject]
                 student_level = 'Level ' + data[3]
                 print('\n')
                 break
